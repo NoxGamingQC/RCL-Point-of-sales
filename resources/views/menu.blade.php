@@ -1,4 +1,4 @@
-@extends('layouts.pages.pos')
+@extends('layout.app')
 @section('content')
 <div style="position:absolute;margin:20vh;margin-left:30vh;z-index:99">
     <h1 id="amount" class="text-success" value="0"></h1>
@@ -41,94 +41,19 @@
     <div class="col-md-12" style="min-height:49vh;max-height:49vh;overflow:hidden;margin:0px;padding:0px">
         <div id="items" class="col-md-7 text-center" style="overflow:hidden;margin:0px;padding:0px;">
             <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                <a class="btn btn-lg" href="/pos/{{$slug}}" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
+                <a class="btn btn-lg" href="/pos" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
                     <li style="margin-top:3vh;list-style-type: none;overflow:hidden;padding-top:0px !important;padding:2px;color: #000;border-radius: 5px;opacity: 0.85;">Fermer<br />session</li>
                 </a>
             </div>                                      
             @foreach($catalog as $item)
-                @if(isset($item->getItemData()->getImageIds()[0]))
-                    @foreach($catalogImages as $catalogImage)
-                        @if($catalogImage->getId() == $item->getItemData()->getImageIds()[0])
-                            @if(count($item->getItemData()->getVariations()) > 1)
-                                <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                                    <a id="{{$item->getId()}}" class="btn btn-lg" data-toggle="modal" data-target="#{{$item->getItemData()->getName()}}Modal" style="background-image:url('{{$catalogImage->getImageData()->getUrl()}}');background-size: cover;background-position: center center;min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
-                                    </a>
-                                </div>
-                                <div id="{{$item->getItemData()->getName()}}Modal" class="modal fade" tabindex="-1" role="dialog"><!--Modal start-->
-                                    <div class="modal-dialog-lg" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title">{{$item->getItemData()->getName()}}</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                @foreach($item->getItemData()->getVariations() as $variation)
-                                                    <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                                                        @if(isset($variation->getItemVariationData()->getImageIds()[0]))
-                                                            @foreach($catalogImages as $catalogVariationImage)
-                                                                @if($catalogVariationImage->getId() == $variation->getItemVariationData()->getImageIds()[0])
-                                                                    <a id="{{$variation->getItemVariationData()->getItemId()}}" data-dismiss="modal" name="{{$variation->getItemVariationData()->getName()}}" price="{{$variation->getItemVariationData()->getPriceMoney() ? substr($variation->getItemVariationData()->getPriceMoney()->getAmount(), 0, -2) .'.' . substr($variation->getItemVariationData()->getPriceMoney()->getAmount(), -2) : null}}" class="btn btn-lg items" style="background-image:url('{{$catalogVariationImage->getImageData()->getUrl()}}');background-size: cover;background-position: center center;min-height:20vh;max-height:20vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
-                                                                        @if($variation->getItemVariationData()->getLocationOverrides() == null)
-                                                                            <span id="{{$variation->getId()}}" warning="{{$variation->getItemVariationData()->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                                                        @else
-                                                                            @foreach($variation->getItemVariationData()->getLocationOverrides() as $locationOverride)
-                                                                                @if($locationOverride->getLocationId() == $id)
-                                                                                    <span id="{{$variation->getId()}}" warning="{{$locationOverride->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                                                                @endif
-                                                                            @endforeach
-                                                                        @endif
-                                                                @endif
-                                                            @endforeach
-                                                        @else
-                                                            <a id="{{$item->getId()}}" class="items btn btn-lg" data-dismiss="modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:20vh;max-height:20vh;">
-                                                            <li style="margin:8vh;margin-bottom:2px;list-style-type: none;background-color: #000;color: #FFF;border-radius: 5px;opacity: 0.85;">{{$variation->getitemVariationData()->getName()}}</li>
-                                                            <span style="margin-top:2px;padding:2px;background-color: #000;color: #FFF;border-radius: 5px;opacity: 0.85;">{{$variation->getItemVariationData()->getPriceMoney() ? substr($variation->getItemVariationData()->getPriceMoney()->getAmount(), 0, -2) .',' . substr($variation->getItemVariationData()->getPriceMoney()->getAmount(), -2) . '$' : 'variable'}}</span>
-                                                            @if($variation->getItemVariationData()->getLocationOverrides() == null)
-                                                                <span id="{{$variation->getId()}}" warning="{{$variation->getItemVariationData()->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                                            @else
-                                                                @foreach($variation->getItemVariationData()->getLocationOverrides() as $locationOverride)
-                                                                    @if($locationOverride->getLocationId() == $id)
-                                                                        <span id="{{$variation->getId()}}" warning="{{$locationOverride->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif                                                        @endif
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div><!-- Modal end-->
-                            @else
-                            <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                                <a id="{{$item->getId()}}" class="{{!$item->getItemData()->getVariations()[0]->getItemVariationData()->getPriceMoney() ? 'variable-price' : ''}} items btn btn-lg" name="{{$item->getItemData()->getName()}}" price="{{$item->getItemData()->getVariations()[0]->getItemVariationData()->getPriceMoney() ? substr($item->getItemData()->getVariations()[0]->getItemVariationData()->getPriceMoney()->getAmount(), 0, -2) .'.' . substr($item->getItemData()->getVariations()[0]->getItemVariationData()->getPriceMoney()->getAmount(), -2) : null}}" style="background-image:url('{{$catalogImage->getImageData()->getUrl()}}');background-size: cover;background-position: center center;min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
-                                    @if($item->getItemData()->getVariations()[0]->getItemVariationData()->getLocationOverrides() == null)
-                                        <span id="{{$item->getItemData()->getVariations()[0]->getId()}}" warning="{{$item->getItemData()->getVariations()[0]->getItemVariationData()->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                    @else
-                                        @foreach($item->getItemData()->getVariations()[0]->getItemVariationData()->getLocationOverrides() as $locationOverride)
-                                            @if($locationOverride->getLocationId() == $id)
-                                                <span id="{{$item->getItemData()->getVariations()[0]->getId()}}" warning="{{$locationOverride->getInventoryAlertThreshold()}}" class="physical-count"></span>
-                                            @endif
-                                        @endforeach   
-                                    @endif
-                                </a>
-                            </div>
-                            @endif
-                        @endif
-                    @endforeach
-                @else
-                    <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
-                        <a id="{{$item->getId()}}" class="btn btn-lg" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
-                            <li style="padding-top:50px;list-style-type:none;overflow:hidden;padding:4vh;height:12vh;">{{$item->getItemData()->getName()}}</li>
-                        </a>
-                    </div>
-                @endif
+                <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                    <a id="{{$item->id}}" class="btn btn-lg" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
+                        <li style="padding-top:50px;list-style-type:none;overflow:hidden;padding:4vh;height:12vh;">{{$item->name}}</li>
+                    </a>
+                </div>
             @endforeach
+
+            <!-- Fill out the rest of the blank square with empty button -->
             @for($i = 0; $i < 24; $i++)
                 <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
                     <a class="btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;">
@@ -326,7 +251,7 @@ $(document).ready(function() {
 $('.physical-count').each(function() {
     var item = $(this);
     $.ajax({
-        url: "/pos/{{$slug}}/getInventory/" + $(this).attr('id') + "/",
+        url: "/pos/getInventory/" + $(this).attr('id') + "/",
         type: "GET",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -343,7 +268,7 @@ $('.physical-count').each(function() {
 
 function registerPayment(amount) {
     $.ajax({
-        url: "/pos/{{$slug}}/pay/",
+        url: "/pos/pay/",
         type: "POST",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
