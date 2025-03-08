@@ -21,15 +21,13 @@ use Illuminate\Http\Request;
 
 class POSController extends Controller
 {
-    public function index($slug) {
+    public function index() {
         //return view('errors.custom')->with(['title' => 'Erreur 503 - EN MAINTENANCE', 'description' => 'Le système de caisse est présentement en maintenance. Désolé pour tout inconvéniant.','name'=> "Service Technologique J.Bédard", 'logo' => '/img/jbedard_tech_services.png', 'title', 'Error 503']);
-        return view('view.pos.lock')->with([
-            'id' => $user->id,
-            'name' => $user->name,
-            'image' => $user->image,
-            'slug' => $slug,
-            'phone_number' => $user->phone_number,
-            'address'=>$user->address
+        return view('lock')->with([
+            'name' => env('NAME'),
+            'image' => env('IMAGE'),
+            'phone_number' => env('PHONE_NUMBER'),
+            'address'=> env('ADDRESS')
         ]);
     }
 

@@ -12,9 +12,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>POS</title>
         <link rel="icon" href="/img/logo.png" type="image/png">
-        <link href="{{mix('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-        <script src="{{mix('js/app.js')}}"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @endif
     </head>
     <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;width:1024px !important;height:768px !important">
         <div id="content" style="margin:0px !important;padding:0px !important">

@@ -75,14 +75,14 @@ $('.pin-erase').on('click', function() {
 $('.menu-button').on('click', function() {
     var pin = $('#pin').attr('value');
     $.ajax({
-        url: "/pos/validate/" + {{ $id }} + "/" + pin + "/menu",
+        url: "/pos/validate/" + pin + "/menu",
         type: "POST",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (result) {
             $('#pin').html('<h3 class="text-success">Bonjour, ' + result.name + '</h3>');
-            window.location.replace("/pos/{{$slug}}/menu/" + result.id);
+            window.location.replace("/pos/menu/" + result.id);
         },
         error: function (error) {
             $('#pin').attr('value', '')
