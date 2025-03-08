@@ -11,12 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>POS</title>
-        <link rel="icon" href="/img/logo.png" type="image/png">
+        <link rel="icon" href="{{env('ICON')}}" type="image/png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @endif
+        <link href="/css/app.css" rel="stylesheet">
+        <script src="/js/app.js"></script>
     </head>
     <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;width:1024px !important;height:768px !important">
         <div id="content" style="margin:0px !important;padding:0px !important">

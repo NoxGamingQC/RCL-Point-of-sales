@@ -3,7 +3,7 @@
 
 <div class="row" style="margin:0px;padding:0px;">
     <div class="col-md-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
-        <img src="{{$image}}" alt="{{$name}}" style="margin-top:40%;width:85%">
+        <img src="{{env('LOGO')}}" alt="{{$name}}" style="margin-top:40%;width:85%">
         <br /><br />
         <h4>{{$phone_number}}</h4>
         <h4>{!!$address!!}</h4>
