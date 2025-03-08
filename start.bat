@@ -26,7 +26,7 @@ if %ERRORLEVEL%==0 (
 :SilentCall
 cd %WorkingDirectory%
 git pull origin master
-npm run dev
+php artisan serve
 
 
 :Exit
