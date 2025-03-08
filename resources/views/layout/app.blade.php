@@ -7,10 +7,10 @@
         <meta property='og:image:width' content='500' />
         <meta property='og:image:height' content='500' />
         <meta property="og:type" content='website' />
-        <meta name="author" content="NoxGamingQC">
+        <meta name="author" content="J.Bédard Tech Services">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>POS</title>
+        <title>POS {{env('NAME') ? '- ' . env('NAME') : ''}}</title>
         <link rel="icon" href="{{env('ICON')}}" type="image/png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
