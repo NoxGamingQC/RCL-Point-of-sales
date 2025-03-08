@@ -16,7 +16,7 @@ use Square\Models\Builders\BatchRetrieveInventoryCountsRequestBuilder;
 use Square\Environment;
 use Square\Exceptions\ApiException;
 use Carbon\Carbon;
-use App\Model\PosCodes;
+use App\Models\Pin;
 use Illuminate\Http\Request;
 
 class POSController extends Controller
@@ -31,10 +31,10 @@ class POSController extends Controller
         ]);
     }
 
-    public function validateCashier($pos, $pin, $option) {
-        $cashier = PosCodes::where('pin', '=', $pin)->where('pos', '=', $pos)->first();
+    public function validateCashier($pin, $option) {
+        $cashier = Pin::where('pin', '=', $pin)->first();
         if(!isset($cashier)) {
-            $cashier = PosCodes::where('pin', '=', $pin)->where('pos', '=', 'all')->first();
+            $cashier = Pin::where('pin', '=', $pin)->where('pin', '=', 'all')->first();
         }
         if($cashier) {
             if(in_array($option, explode(';', $cashier->access)) || $cashier->access == 'all') {
