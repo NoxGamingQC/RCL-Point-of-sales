@@ -72,7 +72,12 @@
                                     <div class="row">
                                         @foreach($item->getVariations() as $variation)
                                             <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                                                    <a id="{{$item->id}};{{$variation->id}}" name="{{$variation->name}}" price="{{$variation->price}}" class="items btn btn-lg" data-dismiss="modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:20vh;max-height:20vh;">
+                                                <a id="{{$item->id}};{{$variation->id}}" name="{{$variation->name}}" price="{{$variation->price}}" class="items btn btn-lg" data-dismiss="modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:20vh;max-height:20vh;">
+                                                    @if(!is_null($variation->inventory) && $variation->inventory == 0)
+                                                        <span class="text-danger" style="z-index:99;position:absolute;margin:-25px;margin-top:10px;padding:0px"><h1 style="font-size: 70px;color:#F00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">X</h1></span>
+                                                    @elseif(!is_null($variation->inventory) && $variation->inventory <= $variation->alert_threshold)
+                                                        <span class="text-warning" style="z-index:99;position:absolute;margin:-12px;margin-top:12px;padding:0px"><h1 style="font-size: 70px;color:#FF0;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">!</h1></span>
+                                                    @endif
                                                     <li style="font-weight: bold;;margin:8vh;margin-left:2vh !important;margin-bottom:2px;list-style-type: none;color: #000;border-radius: 5px;opacity: 0.85;">{{$variation->name}}</li>
                                                     <span style="margin-top:2px;padding:2px;color: #000;border-radius: 5px;opacity: 0.85;">{{$variation->price}} $</span>
                                                 </a>
