@@ -26,7 +26,7 @@ if %ERRORLEVEL%==0 (
 :SilentCall
 cd %WorkingDirectory%
 git pull origin master
-php artisan serve
+php artisan serve --host 192.168.2.13 --port 80
 
 
 :Exit
