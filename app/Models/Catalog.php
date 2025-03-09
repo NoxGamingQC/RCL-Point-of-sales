@@ -15,4 +15,11 @@ class Catalog extends Model
             ->get();
         return count($itemList);
     }
+
+    public function getVariations() {
+        return DB::table('bar_items')
+            ->where('category_id', '=', $this->id)
+            ->orderBy('id')
+            ->get();
+    }
 }

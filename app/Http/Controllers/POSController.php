@@ -49,45 +49,12 @@ class POSController extends Controller
                     'name' => env('NAME'),
                     'image' => env('LOGO'),
                     'phone_number'=> env('PHONE_NUMBER'),
-                    'catalog' => $category,
+                    'catalog' => $category->sortBy('id'),
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname
                 ]);
             }
         return redirect('/pos/');
-    }
-
-    public function getInventoryCount($slug, $itemID) {
-        $user = ApiKey::where('key', $slug)->first();
-            $client = SquareClientBuilder::init()
-            ->bearerAuthCredentials(
-                BearerAuthCredentialsBuilder::init(
-                    env('SQUARE_API_KEY')
-                )
-            )
-                ->environment(env('SQUARE_ENVIRONEMENT') == 'production' ? Environment::PRODUCTION : Environment::SANDBOX)
-                ->build();
-        $inventoryApi = $client->getInventoryApi();
-        $locationID = 'LWWEQ6TGRQ74W'/*$user->square_location_id*/;
-
-    $apiResponse = $inventoryApi->retrieveInventoryCount($itemID);
-    if ($apiResponse->isSuccess()) {
-        $response = $apiResponse->getResult()->getCounts();
-        if($response) {
-            foreach ($response as $count) {
-                if ($count->getLocationId() == $locationID) {
-                    return response()->json($count->getQuantity());
-                }
-            }
-        }
-        return response()->json(null);
-    } else {
-        $errors = $apiResponse->getErrors();
-    }
-
-    // Getting more response information
-    var_dump($apiResponse->getStatusCode());
-    var_dump($apiResponse->getHeaders());
     }
 }

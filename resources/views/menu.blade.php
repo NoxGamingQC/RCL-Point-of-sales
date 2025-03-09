@@ -46,13 +46,41 @@
                 </a>
             </div>                                      
             @foreach($catalog as $item)
-                <!-- No Images -->
-                @if($item->getQuantity() == 0)
-                    <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
-                        <a id="{{$item->id}}"  price="{{$item->price}}" name="{{$item->name}}" class="items btn btn-lg" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
-                            <li style="padding-top:50px;list-style-type:none;overflow:hidden;padding:4vh;height:12vh;">{{$item->name}}</li>
-                        </a>
-                    </div>
+                <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                    <a id="{{$item->id}}" {{$item->getQuantity() == 0 ? ('price=' . $item->price. ' name=' . $item->name) : ''}} class="{{$item->getQuantity() == 0 ? 'items' : ''}} btn btn-lg" data-toggle="modal" data-target="#{{$item->name}}Modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
+                        <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:4vh;color: #000;">{{$item->name}}</li>
+                        @if($item->getQuantity() == 0)
+                            <span style="margin-top:2px;padding:2px;color: #000;border-radius: 5px;opacity: 0.85;">{{$item->price}} $</span>
+                        @endif
+                    </a>
+                </div>
+                @if($item->getQuantity() > 0)
+                <!-- Modal start-->
+                    <div id="{{$item->name}}Modal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">{{$item->name}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        @foreach($item->getVariations() as $variation)
+                                            <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
+                                                    <a id="{{$item->id}};{{$variation->id}}" name="{{$variation->name}}" price="{{$variation->price}}" class="items btn btn-lg" data-dismiss="modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:20vh;max-height:20vh;">
+                                                    <li style="font-weight: bold;margin:8vh;margin-bottom:2px;list-style-type: none;color: #000;border-radius: 5px;opacity: 0.85;">{{$variation->name}}</li>
+                                                    <span style="margin-top:2px;padding:2px;color: #000;border-radius: 5px;opacity: 0.85;">{{$variation->price}} $</span>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Modal end-->
                 @endif
             @endforeach
 

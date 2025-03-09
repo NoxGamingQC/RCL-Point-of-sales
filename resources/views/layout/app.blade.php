@@ -16,16 +16,14 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link href="/css/app.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/js/app.js"></script>
     </head>
     <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;width:1024px !important;height:768px !important">
         <div id="content" style="margin:0px !important;padding:0px !important">
             @yield('content')
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
-            $.fn.selectpicker.Constructor.BootstrapVersion = "3.3.7"
-            $.fn.datepicker.defaults.format = "yyyy-mm-dd";
             console.log('%c{{trans('general.console_wait')}}', 'color:#F80; font-size:60px; font-weight: bold; -webkit-text-stroke: 1px black;');
             console.log('%c{!!trans('general.console_copy_paste01')!!}', 'color:#FFF; font-size:18px;');
             console.log('%c{{trans('general.console_copy_paste02')}}', 'color:#F00; font-size:18px;');
