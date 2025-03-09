@@ -8,7 +8,7 @@ use App\Model\API\ApiKey;
 use Square\Exceptions\ApiException;
 use Carbon\Carbon;
 use App\Models\Pin;
-use App\Models\CatalogCategories;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 
 class POSController extends Controller
@@ -43,7 +43,7 @@ class POSController extends Controller
     public function menu($cashierID)
     {
             $cashier = Pin::find($cashierID);   
-            $category = CatalogCategories::all();
+            $category = Catalog::all();
             if($cashier) {
                 return view('menu')->with([
                     'name' => env('NAME'),

@@ -46,11 +46,14 @@
                 </a>
             </div>                                      
             @foreach($catalog as $item)
-                <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
-                    <a id="{{$item->id}}" class="btn btn-lg" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
-                        <li style="padding-top:50px;list-style-type:none;overflow:hidden;padding:4vh;height:12vh;">{{$item->name}}</li>
-                    </a>
-                </div>
+                <!-- No Images -->
+                @if($item->getQuantity() == 0)
+                    <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                        <a id="{{$item->id}}"  price="{{$item->price}}" name="{{$item->name}}" class="items btn btn-lg" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
+                            <li style="padding-top:50px;list-style-type:none;overflow:hidden;padding:4vh;height:12vh;">{{$item->name}}</li>
+                        </a>
+                    </div>
+                @endif
             @endforeach
 
             <!-- Fill out the rest of the blank square with empty button -->
