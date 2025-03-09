@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.pos')
 @section('content')
 
 <div class="row" style="margin:0px;padding:0px;">

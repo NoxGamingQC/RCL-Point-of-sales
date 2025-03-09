@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="{{ app()->getLocale() }}" style="margin:-2px !important;padding:0px !important;background-color:#000">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/js/app.js"></script>
     </head>
-    <body>
+    <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;width:1024px !important;height:768px !important">
         <div id="content" style="margin:0px !important;padding:0px !important">
             @yield('content')
         </div>

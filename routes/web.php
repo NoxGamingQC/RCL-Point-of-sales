@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    abort(503);
+    return view('welcome');
 });
 
 Route::get('/pos', 'App\Http\Controllers\POSController@index');

@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.pos')
 @section('content')
 <div style="position:absolute;margin:20vh;margin-left:30vh;z-index:99">
     <h1 id="amount" class="text-success" value="0"></h1>
