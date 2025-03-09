@@ -20,6 +20,7 @@
         <script src="/js/app.js"></script>
     </head>
     <body>
+        @include('layout.navbar')
         <div id="content" style="margin:0px !important;padding:0px !important">
             @yield('content')
         </div>

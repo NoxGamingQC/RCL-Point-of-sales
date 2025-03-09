@@ -13,20 +13,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {   
-    $('#logout').on('click', function() {
-        $.ajax({
-            url: '/logout',
-            method: 'POST',
-            data: {
-                _token: $('#csrf').attr('content')
-            },
-            success: function() {
-                window.location.href = '/';
-            }
-        });
-    })
-})
-</script>
 @endsection
