@@ -9,7 +9,7 @@
         <meta property="og:type" content='website' />
         <meta name="author" content="J.Bédard Tech Services">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta id="csrf" name="csrf-token" content="{{ csrf_token() }}">
         <title>POS {{env('NAME') ? '- ' . env('NAME') : ''}}</title>
         <link rel="icon" href="{{env('ICON')}}" type="image/png">
         <link href="{{mix('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
