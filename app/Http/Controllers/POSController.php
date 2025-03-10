@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Model\API\ApiKey;
+use Illuminate\Support\Facades\DB;
 use Square\Exceptions\ApiException;
 use Carbon\Carbon;
 use App\Models\Pin;
 use App\Models\Catalog;
+use App\Models\Item;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -78,5 +80,26 @@ class POSController extends Controller
             return 200;
         }
         abort(403);
+    }
+
+    public function sellInventory(Request $request) {
+        $category = Catalog::where('id', $request->category_id)->first();
+        try {
+            $item = Item::where('id', $request->item_id)->first();
+    
+            if(isset($item)) {
+                if($item && $item !== 'undefined' && !is_null($item)) {
+                    $item->inventory -= $request->quantity;
+                    $item->save();
+                    return 200;
+                }
+            }
+        } catch(\Exception $error) {}
+        
+        if($category && $category !== 'undefined' && !is_null($category)) {
+            $category->inventory -= $request->quantity;
+            $category->save();
+        }
+
     }
 }

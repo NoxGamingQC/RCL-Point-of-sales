@@ -328,6 +328,7 @@ function registerPayment() {
 
             },
             success: function (result) {
+                adjustInventory(item);
                 console.log('success');
             },
             error: function (error) {
@@ -335,6 +336,28 @@ function registerPayment() {
             }
         })
     })
+
+    function adjustInventory(item) {
+        $.ajax({
+            url: "/pos/inventory/",
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'category_id': $(item).attr('category'),
+                'item_id': $(item).attr('item'),
+                'quantity': $(item).attr('quantity'),
+
+            },
+            success: function (result) {
+                console.log('success');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
     
 }
 </script>

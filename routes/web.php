@@ -7,6 +7,7 @@ Route::post('/pos/validate/{pin}/{option}', 'App\Http\Controllers\POSController@
 Route::get('/pos/menu/{cashier_id}', 'App\Http\Controllers\POSController@menu');
 Route::get('/pos/getInventory/{itemID}', 'App\Http\Controllers\POSController@getInventoryCount');
 Route::post('/pos/pay', 'App\Http\Controllers\POSController@save');
+Route::post('/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
 
 Auth::routes();
 
