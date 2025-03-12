@@ -334,6 +334,9 @@ function registerPayment() {
             },
             error: function (error) {
                 console.log(error);
+            },
+            complete: function() {
+                window.location.reload();
             }
         })
     })

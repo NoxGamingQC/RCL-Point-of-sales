@@ -92,6 +92,7 @@ $('.menu-button').on('click', function() {
                 $('#pin').html('<h3 class="text-danger">ACCÈS REFUSÉ</h3>');
             } else {
                 $('#pin').html('<h3 class="text-danger">ERREUR INCONNU</h3>');
+                window.location.reload();
             }
         }
     });
