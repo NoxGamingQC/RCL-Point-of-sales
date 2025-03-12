@@ -364,5 +364,20 @@ function registerPayment() {
     }
     
 }
+$(document).ready(function() {
+    window.onInactive();
+});
+ 
+function onInactive(){
+    var wait = setTimeout(doInactive, 300000); 
+    document.onmousemove = document.mousedown = document.mouseup = document.onkeydown = document.onkeyup = document.focus = function(){
+        clearTimeout(wait);
+        wait = setTimeout(doInactive, 300000);
+    };
+}
+
+function doInactive() {
+    document.location.href = '/pos'
+}
 </script>
 @endsection
