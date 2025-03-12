@@ -8,6 +8,9 @@ use App\Model\API\ApiKey;
 use Illuminate\Support\Facades\DB;
 use Square\Exceptions\ApiException;
 use Carbon\Carbon;
+use App\Models\Invoice;
+use App\Models\Customer;
+use App\Models\InvoiceItems;
 use App\Models\Pin;
 use App\Models\Catalog;
 use App\Models\Item;
@@ -47,6 +50,8 @@ class POSController extends Controller
     {
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
+            $invoices = Invoice::where('status','=', 'unpaid')->get();
+            $customer = Customer::all();
             if($cashier) {
                 return view('menu')->with([
                     'cashier_id' => $cashier->id,
@@ -54,12 +59,18 @@ class POSController extends Controller
                     'image' => env('LOGO'),
                     'phone_number'=> env('PHONE_NUMBER'),
                     'catalog' => $category->sortBy('id'),
+                    'invoices' => $invoices,
+                    'customer' => $customer,
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname
                 ]);
             }
         return redirect('/pos/');
+    }
+
+    public function getInvoiceItems($invoiceID) {
+        return InvoiceItems::where('invoice_id', $invoiceID)->get();
     }
 
     public function save(Request $request) {
