@@ -12,9 +12,9 @@ class DashboardController extends Controller
     public function index() {
         if(Auth::check()) {
             $user = Auth::user();
-            $transactions = Transaction::all();
-            $todayTransactions = Transaction::whereDate('created_at', Carbon::today('America/Toronto'))->get();
-            $yesterdayTransactions = Transaction::whereDate('created_at', Carbon::yesterday('America/Toronto'))->get();
+            $transactions = Transaction::where('is_canceled', false)->get();
+            $todayTransactions = Transaction::whereDate('created_at', Carbon::today('America/Toronto'))->where('is_canceled', false)->get();
+            $yesterdayTransactions = Transaction::whereDate('created_at', Carbon::yesterday('America/Toronto'))->where('is_canceled', false)->get();
             $yesterdayCount = 0;
             $todayTransactionCount = 0;
 
@@ -37,7 +37,7 @@ class DashboardController extends Controller
     public function transactions() {
         if(Auth::check()) {
             $user = Auth::user();
-            $transactions = Transaction::all()->sortBy('created_at');
+            $transactions = Transaction::orderBy('created_at','DESC')->get();
             return view('transactions')->with([
                 'user' => $user,
                 'transactions' => $transactions

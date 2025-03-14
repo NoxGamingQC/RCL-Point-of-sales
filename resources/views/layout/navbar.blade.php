@@ -1,41 +1,23 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#" style="padding-top:5px;"><img alt="{{env('NAME')}}" src="{{env('LOGO')}}" style="width:75px"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/dashboard">Tableau de bord</a></li>
-                <li><a href="/transactions">Transactions</a></li>
-                <li><a href="#">Rapports</a></li>
-                <li><a href="#">Inventaire</a></li>
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <li style="cursor: pointer;"><a id="logout">Déconnexion</a></li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="/logo.png" alt="{{env('NAME')}}" height="30px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/dashboard">Tableau de bord</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transactions">Transactions</a>
+            </li>
+        </ul>
+        <form class="d-flex" method="post" action="/logout">
+            <button class="nav-link" aria-disabled="true">Déconnexion</button>
+        </form>
     </div>
+</div>
 </nav>
-<script type="text/javascript">
-$(document).ready(function() {   
-    $('#logout').on('click', function() {
-        $.ajax({
-            url: '/logout',
-            method: 'POST',
-            data: {
-                _token: $('#csrf').attr('content')
-            },
-            success: function() {
-                window.location.href = '/';
-            }
-        });
-    })
-})
-</script>

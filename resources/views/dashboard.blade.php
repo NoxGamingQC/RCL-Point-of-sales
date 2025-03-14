@@ -4,9 +4,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1><u>Tableau de bord</u></h1>
-            <br/>
-        </div>
+            <br />
+            <h1>Tableau de bord</h1>
+            <hr />
+            <br />
         <div class="col-md-12">
             <h3>Total de la veille: {{$yesterday_count}}</h3>
             <h3>Total aujourd'hui: {{$today_count}}</h3>
