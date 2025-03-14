@@ -21,3 +21,4 @@ Route::get('/home', function () {
 });
 
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
+Route::get('/transactions', 'App\Http\Controllers\DashboardController@transactions');
