@@ -12,7 +12,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>POS {{env('NAME') ? '- ' . env('NAME') : ''}}</title>
         <link rel="icon" href="{{env('ICON')}}" type="image/png">
-        <link href="{{mix('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link href="/css/app.css" rel="stylesheet">

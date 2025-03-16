@@ -12,7 +12,6 @@
         <meta id="csrf" name="csrf-token" content="{{ csrf_token() }}">
         <title>POS {{env('NAME') ? '- ' . env('NAME') : ''}}</title>
         <link rel="icon" href="{{env('ICON')}}" type="image/png">
-        <link href="{{mix('css/bootstrap.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         <link href="/css/app.css" rel="stylesheet">
@@ -25,10 +24,10 @@
             <div class="container">
                 <div class="row justify-content-center  text-center">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="row">
                             <div class="col-md-12">
                                 <br />
-                                <div class="card-header text-left"><h1>Connexion au tableau de bord</h1></div>
+                                <div class="text-left"><h1>Connexion au tableau de bord</h1></div>
                                 <hr />
                             </div>
                             <div class="col-md-3 text-left">
@@ -42,7 +41,7 @@
                                 <br />
                                 <br />
                             </div>
-                            <div class="card-body text-center col-md-8">
+                            <div class="text-center col-md-8">
                                 <br /><br /><br />
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
