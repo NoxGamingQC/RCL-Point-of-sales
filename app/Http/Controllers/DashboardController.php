@@ -37,11 +37,11 @@ class DashboardController extends Controller
     public function transactions() {
         if(Auth::check()) {
             $user = Auth::user();
-            $transactions = Transaction::orderBy('created_at','DESC')->get();
+            $transactions = Transaction::whereBetween('created_at', [Carbon::today('America/Toronto')->format('Y-m-') ."1 00:00:00", Carbon::today('America/Toronto')->format('Y-m-d')." 23:59:59"])->orderBy('created_at','DESC')->get();
             return view('transactions')->with([
                 'user' => $user,
                 'transactions' => $transactions,
-                'transactionsTotalCount' => Transaction::totalCount(),
+                'transactionsTotalCount' => Transaction::whereBetween('created_at', [Carbon::today('America/Toronto')->format('Y-m-') ."1 00:00:00", Carbon::today('America/Toronto')->format('Y-m-d')." 23:59:59"])->totalCount(),
             ]);
         }
         abort(403);

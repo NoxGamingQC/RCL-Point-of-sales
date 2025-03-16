@@ -42,7 +42,7 @@ class Transaction extends Model
 
     public function scopeTotalCount($query) {
         $totalPrice = 0;
-        foreach($query->get() as $transaction) {
+        foreach($query->where('is_canceled', false)->get() as $transaction) {
             $totalPrice += $transaction->price;
         }
         
