@@ -45,4 +45,22 @@ class DashboardController extends Controller
         }
         abort(403);
     }
+
+    public function getTransactions($rawFirstDay, $rawSecondDay) {
+        if(Auth::check()) {
+            $user = Auth::user();
+            $firstDay = new Carbon($rawFirstDay, 'America/Toronto');
+            $secondDay = new Carbon($rawSecondDay, 'America/Toronto');
+            
+            $transactions = Transaction::whereBetween('created_at', [$firstDay->format('Y-m-d')." 00:00:00", $secondDay->format('Y-m-d')." 23:59:59"])->orderBy('created_at','DESC')->get();
+            
+            return view('transactions')->with([
+                'user' => $user,
+                'transactions' => $transactions,
+                'firstDay' => $firstDay,
+                'secondDay' => $secondDay
+            ]);
+        }
+        abort(403);
+    }
 }

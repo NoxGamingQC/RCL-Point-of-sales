@@ -23,20 +23,20 @@ class Transaction extends Model
         if ($this->item_id) {
             $item = DB::table('bar_items')
                     ->where('id', '=', $this->item_id)
-                    ->first();
+                    ->first()->name;
 
         } else {
             $item = DB::table('bar_item_category')
                     ->where('id', '=', $this->category_id)
-                    ->first();
+                    ->first()->fullname;
         }
-        return $item->name;
+        return $item;
     }
 
     public function getCategoryName() {
         $item = DB::table('bar_item_category')
                 ->where('id', '=', $this->category_id)
                 ->first();
-        return $item->name;
+        return $item->fullname;
     }
 }

@@ -12,12 +12,17 @@
         <div class="col-md-12">
             <h3>Filtres</h3>
             
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="input-daterange input-group" id="datepicker">
-                    <input type="text" class="input-sm form-control" name="start" />
-                    <span class="input-group-addon">&nbspà&nbsp</span>
-                    <input type="text" class="input-sm form-control" name="end" />
+                    <input type="text" class="form-control" id="firstDay" name="start" placeholder="YYYY-MM-DD" value="{{isset($firstDay) ? $firstDay->format('Y-m-d') : ''}}" />
+                    <span class="input-group-text">à</span>
+                    <input type="text" class="form-control" id="secondDay" name="end" placeholder="YYYY-MM-DD" value="{{isset($secondDay) ? $secondDay->format('Y-m-d') : ''}}"/>
+                    <button class="btn btn-success" type="button" id="searchDate"><i class="fa fa-search"></i></button>
                 </div>
+                <hr />
+                <h3>Total: 0,00 $</h4>
+                <hr />
+
             </div>
             <br />
         </div>
@@ -60,5 +65,9 @@ $('.input-daterange').datepicker({
     autoclose: true,
     todayHighlight: true
 });
+
+$('#searchDate').on('click', function() {
+    window.location.href = "/transactions/" + moment($('.input-daterange').data().datepicker.dates[0]).utcOffset(5).format('YYYY-MM-DD') + '/' + moment($('.input-daterange').data().datepicker.dates[1]).utcOffset(5).format('YYYY-MM-DD');
+})
 </script>
 @endsection
