@@ -40,7 +40,8 @@ class DashboardController extends Controller
             $transactions = Transaction::orderBy('created_at','DESC')->get();
             return view('transactions')->with([
                 'user' => $user,
-                'transactions' => $transactions
+                'transactions' => $transactions,
+                'transactionsTotalCount' => Transaction::totalCount(),
             ]);
         }
         abort(403);
@@ -54,9 +55,12 @@ class DashboardController extends Controller
             
             $transactions = Transaction::whereBetween('created_at', [$firstDay->format('Y-m-d')." 00:00:00", $secondDay->format('Y-m-d')." 23:59:59"])->orderBy('created_at','DESC')->get();
             
+            $transactionsTotalCount = Transaction::whereBetween('created_at', [$firstDay->format('Y-m-d')." 00:00:00", $secondDay->format('Y-m-d')." 23:59:59"])->totalCount();
+
             return view('transactions')->with([
                 'user' => $user,
                 'transactions' => $transactions,
+                'transactionsTotalCount' => $transactionsTotalCount,
                 'firstDay' => $firstDay,
                 'secondDay' => $secondDay
             ]);

@@ -20,7 +20,7 @@
                     <button class="btn btn-success" type="button" id="searchDate"><i class="fa fa-search"></i></button>
                 </div>
                 <hr />
-                <h3>Total: 0,00 $</h4>
+                <h3>Total: {{Number_format($transactionsTotalCount, 2)}} $</h4>
                 <hr />
 
             </div>

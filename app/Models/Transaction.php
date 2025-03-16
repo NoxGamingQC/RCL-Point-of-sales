@@ -39,4 +39,13 @@ class Transaction extends Model
                 ->first();
         return $item->fullname;
     }
+
+    public function scopeTotalCount($query) {
+        $totalPrice = 0;
+        foreach($query->get() as $transaction) {
+            $totalPrice += $transaction->price;
+        }
+        
+        return $totalPrice;
+    }
 }
