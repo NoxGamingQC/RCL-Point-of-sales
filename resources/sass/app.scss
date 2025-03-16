@@ -1,3 +1,13 @@
-@import '~bootstrap/dist/css/bootstrap.css';
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
 
 $primary: #D04050;
+
+
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary
+));
+
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
