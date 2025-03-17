@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary no-print sticky-top">
+<nav class="navbar nav-pills nav-fill navbar-expand-lg bg-body-tertiary no-print sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img src="/logo.png" alt="{{env('NAME')}}" height="30px">
@@ -9,10 +9,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/dashboard">Tableau de bord</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'dashboard' ? 'active' : '') : ''}}" aria-current="page" href="/dashboard">Tableau de bord</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/transactions">Transactions</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'transactions' ? 'active' : '') : ''}}" href="/transactions">Transactions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'inventory' ? 'active' : '') : ''}}" href="/inventory">Inventory</a>
                 </li>
             </ul>
             <form class="d-flex" method="get" action="/logout">

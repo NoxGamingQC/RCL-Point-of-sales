@@ -1,0 +1,39 @@
+$primary: #D04050;
+$secondary: #595C5F;
+$success: #198754;
+$info:#0DCAF0;
+$warning: #FFC107;
+$danger: #DC3545;
+$dark: #212529;
+
+$primary-text-emphasis: #FFF;
+$secondary-text-emphasis: #FFF;
+$success-text-emphasis: #FFF;
+$info-text-emphasis: #FFF;
+$warning-text-emphasis: #FFF;
+$danger-text-emphasis: #FFF;
+$dark-text-emphasis: #FFF;
+
+$theme-colors: (
+    "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "dark": $dark,
+);
+
+$theme-colors-text: (
+  "primary": $primary-text-emphasis,
+  "secondary": $secondary-text-emphasis,
+  "success": $success-text-emphasis,
+  "info": $info-text-emphasis,
+  "warning": $warning-text-emphasis,
+  "danger": $danger-text-emphasis,
+  "dark": $dark-text-emphasis,
+);
+
+.navbar-nav .active {
+    color: $primary-text-emphasis !important;
+}

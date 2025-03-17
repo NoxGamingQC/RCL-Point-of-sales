@@ -1,24 +1,6 @@
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
+@import "./_early_imports.scss";
 
-$primary: #D04050;
+@import './variables.scss';
+@import "./printing.scss";
 
-
-$theme-colors: map-merge($theme-colors, (
-    "primary": $primary
-));
-
-@media print {
-    .no-print, .no-print * {
-        display: none !important;
-    }
-    @page {
-        size: landscape;
-        page-orientation: upright;
-        margin-bottom: 0;
-    }
-}
-
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css";
-
+@import "./_late-imports.scss";
