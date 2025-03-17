@@ -66,4 +66,22 @@ class Transaction extends Model
         
         return $totalPrice;
     }
+
+    public function scopeQuantityByCategory($query, $categoryId) {
+        $quantity = 0;
+        foreach($query->where('is_canceled', false)->where('category_id', $categoryId)->get() as $transaction) {
+            $quantity += $transaction->quantity;
+        }
+        
+        return $quantity;
+    }
+
+    public function scopeQuantityByItem($query, $itemId) {
+        $quantity = 0;
+        foreach($query->where('is_canceled', false)->where('item_id', $itemId)->get() as $transaction) {
+            $quantity += $transaction->quantity;
+        }
+        
+        return $quantity;
+    }
 }
