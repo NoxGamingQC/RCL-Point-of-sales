@@ -22,12 +22,12 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/js/app.js"></script>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         @include('layout.navbar')
         @include('layout.alert')
-        <div id="content" style="margin:0px !important;padding:0px !important">
+        <div id="content">
             @yield('content')
         </div>
-        @include('layout.footer ')
+        @include('layout.footer')
     </body>
 </html>

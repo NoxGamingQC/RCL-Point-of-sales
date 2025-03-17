@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html style="max-width:100vw;overflow:hidden">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/js/app.js"></script>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100" style="max-width:100vw;overflow:hidden">
         <div id="content" style="margin:0px !important;padding:0px !important">
             <div class="container">
                 <div class="row justify-content-center text-center">
@@ -35,11 +35,6 @@
                                 <br /><br />
                                 <h4>{{env('PHONE_NUMBER')}}</h4>
                                 <h4>{{env('ADDRESS')}}</h4>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
                             </div>
                             <div class="text-center col-md-8">
                                 <br /><br /><br />
@@ -78,17 +73,12 @@
                                     <div class="col-md-12">
                                         <br />
                                     </div>
-                                    <div class="row mb-0 text-center">
-                                        <div class="col-md-12 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                Se connecter
-                                            </button>
-
-                                            @if (Route::has('password.request'))
-                                                <a class="btn btn-link text-danger" href="{{ route('password.request') }}">
-                                                    Mot de passe oublié?
-                                                </a>
-                                            @endif
+                                    <div class="row mb-0 text-left">
+                                        <div class="col-md-12 offset-md-6">
+                                            <div class="input-group">
+                                                <a class="btn btn-secondary" href="/register" type="button">Créer un compte</a>
+                                                <button type="submit" class="btn btn-primary">Se connecter</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
