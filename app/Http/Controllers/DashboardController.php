@@ -107,8 +107,10 @@ class DashboardController extends Controller
     }
 
     public function getInventory() {
+        $catalog = Catalog::all();
         return view('view.dashboard.inventory')->with([
             'active_tab' => 'inventory',
+            'catalog' => $catalog->sortBy('id')
         ]);
     }
 }
