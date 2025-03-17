@@ -43,7 +43,25 @@ class Transaction extends Model
     public function scopeTotalCount($query) {
         $totalPrice = 0;
         foreach($query->where('is_canceled', false)->get() as $transaction) {
-            $totalPrice += $transaction->price;
+            $totalPrice += ($transaction->price * $transaction->quantity);
+        }
+        
+        return $totalPrice;
+    }
+
+    public function scopeCountByCategory($query, $categoryId) {
+        $totalPrice = 0;
+        foreach($query->where('is_canceled', false)->where('category_id', $categoryId)->get() as $transaction) {
+            $totalPrice += ($transaction->price * $transaction->quantity);
+        }
+        
+        return $totalPrice;
+    }
+
+    public function scopeCountByItem($query, $itemId) {
+        $totalPrice = 0;
+        foreach($query->where('is_canceled', false)->where('item_id', $itemId)->get() as $transaction) {
+            $totalPrice += ($transaction->price * $transaction->quantity);
         }
         
         return $totalPrice;

@@ -1,20 +1,27 @@
 @extends('layout.app')
 @section('content')
-<br />
-<h2>Rapport du {{$firstDay->format('Y-m-d')}} au {{$secondDay->format('Y-m-d')}}</h2>
-<br />
-<div class="row">
-    @foreach($transaction_categories as $category)
-        <div class="col-sm-3">
-            <h3>{{$category->fullname}}</h3>
-            <hr />
-            @foreach($category->getVariations() as $item)
-            <b>{{$item->name}}:&nbsp</b>
-            <br />
-            @endforeach
-            <br />
-        </div>
-    @endforeach
+<div class="container-fluid">
+    <br />
+    <h3>Rapport du {{$firstDay->format('Y-m-d')}} au {{$secondDay->format('Y-m-d')}}</h3>
+    <br />
+    <div class="row">
+        @foreach($transaction_categories as $category)
+            <div class="col-sm-3">
+                <h4>{{$category->fullname}} ({{Number_format(\App\Models\Transaction::countByCategory($category->id),2)}}$)</h4>
+                <hr />
+                @if(count($category->getVariations()) > 0)
+                    @foreach($category->getVariations() as $item)
+                    <b>{{$item->name}}:&nbsp</b>{{Number_format(\App\Models\Transaction::countByItem($item->id),2)}}$
+                    <br />
+                    @endforeach
+                @else
+                    <b>Article de base:&nbsp</b>{{Number_format(\App\Models\Transaction::countByCategory($category->id),2)}}$
+                    <br />
+                @endif
+                <br />
+            </div>
+        @endforeach
+    </div>
+    <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$</b></h4>
 </div>
-<h4><b>Grand total: {{$transactionsTotalCount}}</b></h4>
 @endsection
