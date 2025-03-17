@@ -47,22 +47,20 @@ class DashboardController extends Controller
         abort(403);
     }
 
-    public function getTransactions($rawFirstDay, $rawSecondDay) {
+    public function getTransactions($firstDay, $secondDay) {
         if(Auth::check()) {
             $user = Auth::user();
-            $firstDay = new Carbon($rawFirstDay, 'America/Toronto');
-            $secondDay = new Carbon($rawSecondDay, 'America/Toronto');
             
-            $transactions = Transaction::whereBetween('created_at', [$firstDay->format('Y-m-d')." 00:00:00", $secondDay->format('Y-m-d')." 23:59:59"])->orderBy('created_at','DESC')->get();
+            $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->orderBy('created_at','DESC')->get();
             
-            $transactionsTotalCount = Transaction::whereBetween('created_at', [$firstDay->format('Y-m-d')." 00:00:00", $secondDay->format('Y-m-d')." 23:59:59"])->totalCount();
+            $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->totalCount();
 
             return view('transactions')->with([
                 'user' => $user,
                 'transactions' => $transactions,
                 'transactionsTotalCount' => $transactionsTotalCount,
-                'firstDay' => $firstDay,
-                'secondDay' => $secondDay
+                'firstDay' => new Carbon($firstDay),
+                'secondDay' => new Carbon($secondDay)
             ]);
         }
         abort(403);
