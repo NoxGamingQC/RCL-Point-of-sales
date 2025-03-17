@@ -15,7 +15,7 @@
                     <a class="nav-link {{isset($active_tab) ? ($active_tab === 'transactions' ? 'active' : '') : ''}}" href="/transactions">Transactions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'inventory' ? 'active' : '') : ''}}" href="/inventory">Inventory</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'inventory' ? 'active' : '') : ''}}" href="/inventory">Inventaire</a>
                 </li>
             </ul>
             <form class="d-flex" method="get" action="/logout">
