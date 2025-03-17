@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/pos', 'App\Http\Controllers\POSController@index');
 Route::post('/pos/validate/{pin}/{option}', 'App\Http\Controllers\POSController@validateCashier');
@@ -10,6 +11,7 @@ Route::post('/pos/pay', 'App\Http\Controllers\POSController@save');
 Route::post('/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
 
 Auth::routes();
+Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@logout');
 
 
 Route::get('/', function () {

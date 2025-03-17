@@ -15,7 +15,7 @@
                 <a class="nav-link" href="/transactions">Transactions</a>
             </li>
         </ul>
-        <form class="d-flex" method="post" action="/logout">
+        <form class="d-flex" method="get" action="/logout">
             <button class="nav-link" aria-disabled="true">Déconnexion</button>
         </form>
     </div>
