@@ -14,6 +14,7 @@
             
             <div class="col-md-12">
                 <div class="input-daterange input-group" id="datepicker">
+                    <button class="btn btn-primary" type="button" id="generateReport">Rapport</button>
                     <input type="text" class="form-control" id="firstDay" name="start" placeholder="YYYY-MM-DD" value="{{isset($firstDay) ? $firstDay->format('Y-m-d') : ''}}" />
                     <span class="input-group-text">à</span>
                     <input type="text" class="form-control" id="secondDay" name="end" placeholder="YYYY-MM-DD" value="{{isset($secondDay) ? $secondDay->format('Y-m-d') : ''}}"/>
@@ -69,5 +70,10 @@ $('.input-daterange').datepicker({
 $('#searchDate').on('click', function() {
     window.location.href = "/transactions/" + moment($('.input-daterange').data().datepicker.dates[0]).utcOffset(5).format('YYYY-MM-DD') + '/' + moment($('.input-daterange').data().datepicker.dates[1]).utcOffset(5).format('YYYY-MM-DD');
 })
+
+$('#generateReport').on('click', function() {
+    window.location.href = "/reports/" + moment($('.input-daterange').data().datepicker.dates[0]).utcOffset(5).format('YYYY-MM-DD') + '/' + moment($('.input-daterange').data().datepicker.dates[1]).utcOffset(5).format('YYYY-MM-DD');
+})
+
 </script>
 @endsection
