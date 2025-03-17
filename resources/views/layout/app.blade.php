@@ -10,7 +10,7 @@
         <meta name="author" content="J.Bédard Tech Services">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta id="csrf" name="csrf-token" content="{{ csrf_token() }}">
-        <title>POS {{env('NAME') ? '- ' . env('NAME') : ''}}</title>
+        <title>{{env('NAME') ? env('NAME') : 'J.Bédard Tech Services'}}</title>
         <link rel="icon" href="{{env('ICON')}}" type="image/png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

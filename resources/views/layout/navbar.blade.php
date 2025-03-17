@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary no-print">
 <div class="container-fluid">
     <a class="navbar-brand" href="/">
       <img src="/logo.png" alt="{{env('NAME')}}" height="30px">

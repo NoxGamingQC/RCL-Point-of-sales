@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
+use App\Models\Catalog;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -61,6 +62,25 @@ class DashboardController extends Controller
                 'transactionsTotalCount' => $transactionsTotalCount,
                 'firstDay' => new Carbon($firstDay),
                 'secondDay' => new Carbon($secondDay)
+            ]);
+        }
+        abort(403);
+    }
+
+    public function getReports($firstDay, $secondDay) {
+        if(Auth::check()) {
+            $user = Auth::user();
+            
+            $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->orderBy('created_at','DESC')->get();
+            $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->totalCount();
+            $transactionCategories = Catalog::all()->sortBy('id');
+            return view('reports')->with([
+                'user' => $user,
+                'transactions' => $transactions,
+                'transactionsTotalCount' => $transactionsTotalCount,
+                'firstDay' => new Carbon($firstDay),
+                'secondDay' => new Carbon($secondDay),
+                'transaction_categories' => $transactionCategories
             ]);
         }
         abort(403);
