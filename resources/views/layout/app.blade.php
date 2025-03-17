@@ -24,6 +24,7 @@
     </head>
     <body>
         @include('layout.navbar')
+        @include('layout.alert')
         <div id="content" style="margin:0px !important;padding:0px !important">
             @yield('content')
         </div>

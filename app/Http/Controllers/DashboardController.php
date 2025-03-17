@@ -33,10 +33,10 @@ class DashboardController extends Controller
                     'today_count' => explode('.', number_format($todayTransactionCount, 2))[0] . ',' . explode('.', number_format($todayTransactionCount, 2))[1] . ' $',
                 ]);
             } else {
-                return redirect('/logout');
+                return redirect('/logout')->withErrors(['message' => 'Accès non authorisé']);
             }
         }
-        return redirect('/');
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
     }
 
     public function transactions() {
@@ -50,10 +50,10 @@ class DashboardController extends Controller
                     'transactionsTotalCount' => Transaction::whereBetween('created_at', [Carbon::today('America/Toronto')->format('Y-m-') ."1 00:00:00", Carbon::today('America/Toronto')->format('Y-m-d')." 23:59:59"])->totalCount(),
                 ]);
             } else {
-                return redirect('/logout');
+                return redirect('/logout')->withErrors(['message' => 'Accès non authorisé']);
             }
         }
-        return redirect('/');
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
     }
 
     public function getTransactions($firstDay, $secondDay) {
@@ -73,10 +73,10 @@ class DashboardController extends Controller
                     'secondDay' => new Carbon($secondDay)
                 ]);
             } else {
-                return redirect('/logout');
+                return redirect('/logout')->withErrors(['message' => 'Accès non authorisé']);
             }
         }
-        return redirect('/');
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
     }
 
     public function getReports($firstDay, $secondDay) {
@@ -96,9 +96,9 @@ class DashboardController extends Controller
                     'transaction_categories' => $transactionCategories
                 ]);
             } else {
-                return redirect('/logout');
+                return redirect('/logout')->withErrors(['message' => 'Accès non authorisé']);
             }
         }
-        return redirect('/');
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
     }
 }

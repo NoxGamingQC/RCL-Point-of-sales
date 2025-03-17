@@ -17,12 +17,18 @@ class LogoutController extends Controller
     /**
      * Log the user out of the application.
      */
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request)
     {
+        $errors = $request->session()->get('errors');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
-        return redirect('/');
+        if(isset($errors)) {
+            if(count($errors->all()) > 0) {
+                return redirect('/login')->withErrors($errors->all());
+            }
+        } else {
+            return redirect('/login');
+        }
     }
 }

@@ -20,15 +20,15 @@
     </head>
     <body>
         <div id="content" style="margin:0px !important;padding:0px !important">
-
             <div class="container">
-                <div class="row justify-content-center  text-center">
+                <div class="row justify-content-center text-center">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <br />
                                 <div class="text-left"><h1>Connexion au tableau de bord</h1></div>
                                 <hr />
+                                @include('layout.alert')
                             </div>
                             <div class="col-md-3 text-left">
                                 <img src="/logo.png" width="100%">
