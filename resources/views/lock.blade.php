@@ -10,8 +10,8 @@
         <br />
         <hr />
         <br />
-        <h4>Créé & maintenu par Service Technologique J.Bédard</h4>
-        <h4>(819) 852-8705</h4>
+        <h2 class="developper-font"><b>Créé & maintenu par Service Technologique J.Bédard</b></h2>
+        <h3 class="developper-font"><b>(819) 852-8705</b></h3>
     </div>
     <div class="col-md-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
         <h1 id="pin" style="margin-top:30%;min-height:50px" value=""></h1>

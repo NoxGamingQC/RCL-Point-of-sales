@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap);
 /*!
  * Datepicker for Bootstrap v1.10.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
@@ -434,6 +435,10 @@
   margin-right: -5px;
 }
 @charset "UTF-8";
+.developper-font {
+  font-family: "Ms Madi", cursive;
+}
+
 .navbar-nav .active {
   color: #FFF !important;
 }
