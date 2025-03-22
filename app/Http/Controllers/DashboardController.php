@@ -63,9 +63,9 @@ class DashboardController extends Controller
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
                 
-                $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->orderBy('created_at','DESC')->get();
+                $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 07:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 06:59:59"])->orderBy('created_at','DESC')->get();
                 
-                $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->totalCount();
+                $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 07:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 06:59:59"])->totalCount();
 
                 return view('view.dashboard.transactions')->with([
                     'active_tab' => 'transactions',
@@ -87,8 +87,8 @@ class DashboardController extends Controller
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
                 
-                $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->orderBy('created_at','DESC')->get();
-                $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 04:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->totalCount();
+                $transactions = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 07:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 06:59:59"])->orderBy('created_at','DESC')->get();
+                $transactionsTotalCount = Transaction::whereBetween('created_at', [new Carbon($firstDay)->format('Y-m-d')." 07:00:00", new Carbon($secondDay)->addDays(1)->format('Y-m-d') ." 06:59:59"])->totalCount();
                 $transactionCategories = Catalog::all()->sortBy('id');
                 return view('view.dashboard.reports')->with([
                     'active_tab' => 'transactions',

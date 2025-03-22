@@ -51,7 +51,7 @@ class POSController extends Controller
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
-            $customer = Customer::all();
+            $customers = Customer::all();
             if($cashier) {
                 return view('menu')->with([
                     'cashier_id' => $cashier->id,
@@ -60,7 +60,7 @@ class POSController extends Controller
                     'phone_number'=> env('PHONE_NUMBER'),
                     'catalog' => $category->sortBy('id'),
                     'invoices' => $invoices,
-                    'customer' => $customer,
+                    'customers' => $customers,
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname

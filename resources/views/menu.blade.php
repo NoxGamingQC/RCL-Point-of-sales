@@ -94,7 +94,37 @@
                     </div><!-- Modal end-->
                 @endif
             @endforeach
-
+            <!-- Button trouver client -->
+            <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                <a id="" class="btn btn-lg" data-toggle="modal" data-target="#customerModal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
+                    <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:3vh;color: #000;">Trouver<br />client</li>
+                </a>
+            </div>
+            <!-- Modal start-->
+                    <div id="customerModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Assigner client</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        @foreach($customers as $customer)
+                                            <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
+                                                <a style="color:black;">
+                                                    <b>{{$customer->firstname}} {{$customer->lastname}}</b>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Modal end-->
             <!-- Fill out the rest of the blank square with empty button -->
             @for($i = 0; $i < 24; $i++)
                 <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
