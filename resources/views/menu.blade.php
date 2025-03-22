@@ -1,5 +1,6 @@
 @extends('layout.pos')
 @section('content')
+
 <div style="position:absolute;margin:20vh;margin-left:30vh;z-index:99">
     <h1 id="amount" class="text-success" value="0"></h1>
 </div>
@@ -12,6 +13,9 @@
             {{$cashierName . ' - ' . $name . ' - ' . $phone_number}}
         </div>
         <div class="col-md-7" style="min-height:49vh;overflow:hidden;margin:0px;padding:0px">
+        <div class="col-md-12">
+            <h4 id="customerId" value=""></h4>
+        </div>
             @if($invoices)
                 @foreach($invoices as $invoice)
                     <div class="col-md-3" style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}margin:0px !important;padding:0px !important;border: 1px solid black">
@@ -43,7 +47,7 @@
         <div id="items" class="col-md-7 text-center" style="overflow:hidden;margin:0px;padding:0px;">
             <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
                 <a class="btn btn-lg" href="/pos" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
-                    <li style="margin-top:3vh;list-style-type: none;overflow:hidden;padding-top:0px !important;padding:2px;color: #000;border-radius: 5px;opacity: 0.85;">Fermer<br />session</li>
+                    <li style="margin-top:3vh;list-style-type: none;overflow:hidden;padding-top:0px !important;padding:2px;color: #f00;border-radius: 5px;opacity: 0.85;">Fermer<br />session</li>
                 </a>
             </div>                                      
             @foreach($catalog as $item)
@@ -110,9 +114,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
+                                        <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
+                                            <a class="customer" style="color:red;" data-dismiss="modal" value="">
+                                                <b>Enlever client</b>
+                                            </a>
+                                        </div>
                                         @foreach($customers as $customer)
                                             <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
-                                                <a style="color:black;">
+                                                <a class="customer" style="color:black;" data-dismiss="modal" value="{{$customer->id}}">
                                                     <b>{{$customer->firstname}} {{$customer->lastname}}</b>
                                                 </a>
                                             </div>
@@ -392,8 +401,13 @@ function registerPayment() {
             }
         })
     }
-    
 }
+
+$('.customer').on('click', function() {
+    $('#customerId').attr('value', $(this).attr('value'));
+    $('#customerId').html($(this).html())
+});
+
 $(document).ready(function() {
     window.onInactive();
 });

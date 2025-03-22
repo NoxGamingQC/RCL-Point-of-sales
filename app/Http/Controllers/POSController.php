@@ -51,7 +51,7 @@ class POSController extends Controller
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
-            $customers = Customer::all();
+            $customers = Customer::all()->sortBy('firstname');
             if($cashier) {
                 return view('menu')->with([
                     'cashier_id' => $cashier->id,
