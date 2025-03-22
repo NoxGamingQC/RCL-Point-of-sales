@@ -207,12 +207,17 @@
         <div id="total-menu">
             <div class="col-md-2 text-center" style="min-height:49vh;max-height:49vh;overflow:hidden;margin:0px;padding:0px">
                 <div class="col-md-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a id="total" class="btn btn-lg btn-default" style="min-height:25vh;max-height:25vh;height:100%;width:100%; margin:0px !important;padding:9vh;height:12vh;">
+                        <a id="total" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;height:9vh;">
                             Total
                         </a>
                     </div>
                     <div class="col-md-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a class="btn btn-lg btn-default disabled" style="min-height:25vh;max-height:25vh;height:100%;width:100%; margin:0px !important;padding:9vh;padding-left:7vh;height:12vh;">
+                        <a class="btn btn-lg btn-default disabled" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6vh;padding-left:7vh;height:9vh;">
+                            Créer<br />facture 
+                        </a>
+                    </div>
+                    <div class="col-md-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
+                        <a class="btn btn-lg btn-default disabled" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;padding-left:7vh;height:9vh;">
                             Promotion
                         </a>
                     </div>
