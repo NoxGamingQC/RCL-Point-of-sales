@@ -114,14 +114,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
-                                            <a class="customer" style="color:red;" data-dismiss="modal" value="remove" placeholder="">
+                                        <div class="col-md-2" style="border:1px solid black;margin;0px;padding:0px;">
+                                            <a class="customer btn btn-lg" style="color:red;min-height:60px !important;max-height:60px !important; height:100%;width:100%;" data-dismiss="modal" value="remove">
                                                 <b>Enlever client</b>
                                             </a>
                                         </div>
                                         @foreach($customers as $customer)
-                                            <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
-                                                <a class="customer" style="color:black;" data-dismiss="modal" value="{{$customer->id}}">
+                                            <div class="col-md-2" style="border:1px solid black;margin;0px;padding:0px;">
+                                                <a class="customer btn btn-lg" style="color:black;min-height:60px !important;max-height:60px !important; height:100%;width:100%;" data-dismiss="modal" value="{{$customer->id}}">
                                                     <b>{{$customer->firstname}} {{$customer->lastname}}</b>
                                                 </a>
                                             </div>
