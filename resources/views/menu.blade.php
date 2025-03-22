@@ -115,7 +115,7 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-2" style="min-height:60px;max-height:60px;border:1px solid black;padding:1%;">
-                                            <a class="customer" style="color:red;" data-dismiss="modal" value="">
+                                            <a class="customer" style="color:red;" data-dismiss="modal" value="remove" placeholder="">
                                                 <b>Enlever client</b>
                                             </a>
                                         </div>
@@ -404,8 +404,13 @@ function registerPayment() {
 }
 
 $('.customer').on('click', function() {
+    if($(this).attr('value') === 'remove') {
+        $('#customerId').attr('value', '');
+        $('#customerId').html('')
+    } else {
     $('#customerId').attr('value', $(this).attr('value'));
     $('#customerId').html($(this).html())
+    }
 });
 
 $(document).ready(function() {
