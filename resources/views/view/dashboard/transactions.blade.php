@@ -42,7 +42,7 @@
             </tr>
             @foreach($transactions as $transaction)
                 <tr class="text-center {{$transaction->is_cancel_validated ? 'table-danger' : ''}} {{$transaction->is_canceled ? 'table-warning' : ''}} {{new Carbon\Carbon($transaction->created_at, 'America/Toronto')->format('Y-m-d') == Carbon\Carbon::today('America/Toronto')->format('Y-m-d') ? 'table-info' : ''}} {{new Carbon\Carbon($transaction->created_at, 'America/Toronto')->format('Y-m-d') == Carbon\Carbon::yesterday('America/Toronto')->format('Y-m-d') ? 'table-success' : ''}}">
-                    <td>{{$transaction->customer_id ? $transaction->customer_id : 'N/A'}}</td>
+                    <td>{{$transaction->customer_id ? App\Models\Customer::where('id', $transaction->customer_id)->first()->firstname . ' ' .  App\Models\Customer::where('id', $transaction->customer_id)->first()->lastname : 'N/A'}}</td>
                     <td>{{$transaction->quantity}}</td>
                     <td>{{$transaction->getCategoryName()}}</td>
                     <td>{{$transaction->getItemName()}}</td>
