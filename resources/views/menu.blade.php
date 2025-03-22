@@ -364,7 +364,8 @@ function registerPayment() {
                 'cashier_id': {{$cashier_id}},
                 'customer_id': null,
                 'is_promotion' : null,
-                'menu': 'menu'
+                'menu': 'menu',
+                'customer': $('#customerId').attr('value')
 
             },
             success: function (result) {
