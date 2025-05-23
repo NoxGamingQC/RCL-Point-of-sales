@@ -217,7 +217,7 @@
                         </a>
                     </div>
                     <div class="col-md-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a class="btn btn-lg btn-default disabled" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;padding-left:7vh;height:9vh;">
+                        <a id="promotion" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;padding-left:7vh;height:9vh;">
                             Promotion
                         </a>
                     </div>
@@ -302,7 +302,7 @@ $(document).ready(function() {
         value = $('#amount').attr('value')
         givenBack = (Number(value.slice(0, value.length-2) + '.' + value.slice(value.length -2, value.length)) - Number($('#totalPrice').attr('value')));
         if (isNaN(givenBack)) {
-            registerPayment();
+            registerPayment(false);
             $('#givenAmount').html('Remise: ' + exactPrice.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
             $('#givenAmount').addClass('text-success');
             $('#givenAmount').removeClass('text-danger');
@@ -320,7 +320,7 @@ $(document).ready(function() {
             $('#amount').attr('value', '0');
             $('#amount').html('');
         } else {
-            registerPayment();
+            registerPayment(false);
             $('#givenAmount').html('Remise: ' + givenBack.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
             $('#givenAmount').addClass('text-success');
             $('#givenAmount').removeClass('text-danger');
@@ -332,6 +332,24 @@ $(document).ready(function() {
                 $(this).remove();
             })
         }
+    })
+
+
+    $('#promotion').on('click', function() {
+        var value = 0;
+        var givenBack = 0;
+        var exactPrice = 0;
+        registerPayment(true);
+        $('#givenAmount').html('Remise: ' + givenBack.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+        $('#givenAmount').addClass('text-success');
+        $('#givenAmount').removeClass('text-danger');
+        $('#amount').attr('value', '0');
+        $('#amount').html('');
+        $('#totalPrice').attr('value', '0');
+        $('#totalPrice').html(exactPrice.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+        $('.cart-item').each(function() {
+            $(this).remove();
+        })
     })
 });
 
@@ -353,7 +371,7 @@ $('.physical-count').each(function() {
     })
 });
 
-function registerPayment() {
+function registerPayment(isPromotion) {
     $('.cart-item').each(function(key, item) {
         $.ajax({
             url: "/pos/pay/",
@@ -368,7 +386,7 @@ function registerPayment() {
                 'quantity': $(this).attr('quantity'),
                 'cashier_id': {{$cashier_id}},
                 'customer_id': null,
-                'is_promotion' : null,
+                'is_promotion' : isPromotion ? true : null,
                 'menu': 'menu',
                 'customer': $('#customerId').attr('value')
 
