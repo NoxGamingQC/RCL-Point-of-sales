@@ -22,6 +22,6 @@
             </div>
         @endforeach
     </div>
-    <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$</b></h4>
+    <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$ ({{Number_format($promotionTotalCount,2)}}$)</b></h4>
 </div>
 @endsection

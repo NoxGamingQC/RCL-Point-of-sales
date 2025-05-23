@@ -96,13 +96,15 @@ class DashboardController extends Controller
                 $endDay = $carbonEndDay->addDays(1)->format('Y-m-d') ." 06:59:59";
 
                 $transactions = Transaction::whereBetween('created_at', [$startDay, $endDay])->orderBy('created_at','DESC')->get();
-                $transactionsTotalCount = Transaction::whereBetween('created_at', [$startDay, $endDay])->totalCount();
+                $transactionsTotalCount = Transaction::whereBetween('created_at', [$startDay, $endDay])->where('is_promotion', false)->totalCount();
+                $promotionTotalCount = Transaction::whereBetween('created_at', [$startDay, $endDay])->where('is_promotion', true)->totalCount();
                 $transactionCategories = Catalog::all()->sortBy('id');
                 return view('view.dashboard.reports')->with([
                     'active_tab' => 'transactions',
                     'user' => $user,
                     'transactions' => $transactions,
                     'transactionsTotalCount' => $transactionsTotalCount,
+                    'promotionTotalCount' => $promotionTotalCount,
                     'firstDay' => new Carbon($firstDay),
                     'secondDay' => new Carbon($secondDay),
                     'transaction_categories' => $transactionCategories
