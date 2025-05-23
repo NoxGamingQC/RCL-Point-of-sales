@@ -58,9 +58,9 @@
                         @elseif(!is_null($item->inventory) && $item->inventory <= $item->alert_threshold)
                             <span class="text-warning" style="z-index:99;position:absolute;margin:-12px;margin-top:-12px;padding:0px"><h1 style="font-size: 70px;color:#FF0;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">!</h1></span>
                         @endif
-                        <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:4vh;{{$item->image ? 'background-color:#000;color:#FFF;': 'color: #000;'}}">{{$item->name}}</li>
+                        <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:4vh;{{$item->image ? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}">{{$item->name}}</li>
                         @if($item->getQuantity() == 0)
-                            <span style="margin-top:2px;padding:2px;{{$item->image ? 'background-color:#000;color:#FFF;': 'color: #000;'}}border-radius: 5px;opacity: 0.85;">{{$item->price}} $</span>
+                            <span style="margin-top:2px;padding:2px;{{$item->image ? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}border-radius: 5px;opacity: 0.85;">{{$item->price}} $</span>
                         @endif
                     </a>
                 </div>
