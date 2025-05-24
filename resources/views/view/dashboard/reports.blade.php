@@ -24,7 +24,7 @@
     </div>
     <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$ ({{Number_format($promotionTotalCount,2)}}$)</b></h4>
     <br class="no-print" />
-    <p class="no-print text-info">N.B. Les montant des articles passé en promotion sont entre parenthèse.</p>
+    <p class="no-print"><i>N.B. Les montant des articles passé en promotion sont entre parenthèse.</i></p>
     <br class="no-print" />
 </div>
 @endsection
