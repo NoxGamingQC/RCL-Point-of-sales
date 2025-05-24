@@ -100,16 +100,28 @@ class POSController extends Controller
     
             if(isset($item)) {
                 if($item && $item !== 'undefined' && !is_null($item)) {
-                    $item->inventory -= $request->quantity;
-                    $item->save();
+                    if($item->inventory > 0 && !is_null($item->inventory)) {
+                        $item->inventory -= $request->quantity;
+                        $item->save();
+                    }
+                    if($item->inventory < 0) {
+                        $item->inventory = 0;
+                        $item->save();
+                    }
                     return 200;
                 }
             }
         } catch(\Exception $error) {}
         
         if($category && $category !== 'undefined' && !is_null($category)) {
-            $category->inventory -= $request->quantity;
-            $category->save();
+            if($category->inventory > 0 && !is_null($category->inventory)) {
+                $category->inventory -= $request->quantity;
+                $category->save();
+                if($category->inventory < 0) {
+                    $category->inventory = 0;
+                    $category->save();
+                }
+            }
         }
 
     }
