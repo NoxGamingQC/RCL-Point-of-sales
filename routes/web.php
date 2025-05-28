@@ -27,3 +27,4 @@ Route::get('/transactions', 'App\Http\Controllers\DashboardController@transactio
 Route::get('/transactions/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getTransactions');
 Route::get('/reports/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getReports');
 Route::get('/inventory', 'App\Http\Controllers\DashboardController@getInventory');
+Route::get('/items', 'App\Http\Controllers\DashboardController@items');

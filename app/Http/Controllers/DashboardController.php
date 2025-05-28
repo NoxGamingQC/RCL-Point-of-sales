@@ -123,4 +123,12 @@ class DashboardController extends Controller
             'catalog' => $catalog->sortBy('id')
         ]);
     }
+
+    public function items() {
+        $catalog = Catalog::all();
+
+        return view('view.dashboard.items')->with([
+            'catalog' => $catalog->sortBy('id')
+        ]);
+    }
 }
