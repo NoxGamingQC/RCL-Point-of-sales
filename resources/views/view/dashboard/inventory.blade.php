@@ -16,7 +16,7 @@
                         @foreach($category->getVariations() as $item)
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <b class="{{$item->inventory <= 0 ? 'text-danger' : ''}} {{$item->inventory < $item->alert_threshold ? 'text-warning' : ''}}">{{$item->name}}:</b>
+                                    <b class="{{!is_null($item->inventory) && $item->inventory <= 0 ? 'text-danger' : ''}} {{!is_null($item->inventory) && $item->inventory < $item->alert_threshold ? 'text-warning' : ''}}">{{$item->name}}:</b>
                                 </div>
                                 <div class="col-sm-4">
                                     <input class="form-inline form-control-sm" type="text" value="{{$item->inventory}}">
