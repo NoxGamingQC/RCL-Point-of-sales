@@ -26,7 +26,7 @@
                     @else
                         <div class="row">
                             <div class="col-sm-6">
-                                <b class="{{$category->inventory <= 0 ? 'text-danger' : ''}} {{$category->inventory < $category->alert_threshold ? 'text-warning' : ''}}">Article de base: </b>
+                                <b class="{{!is_null($item->inventory) && $category->inventory <= 0 ? 'text-danger' : ''}} {{!is_null($item->inventory) && $category->inventory < $category->alert_threshold ? 'text-warning' : ''}}">Article de base: </b>
                             </div>
                             <div class="col-sm-4">
                                 <input class="form-inline form-control-sm" type="text" value="{{$category->inventory}}">
