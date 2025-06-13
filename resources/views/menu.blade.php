@@ -15,11 +15,12 @@
         <div class="col-md-7" style="min-height:49vh;overflow:hidden;margin:0px;padding:0px">
         <div class="col-md-12">
             <h4 id="customerId" value=""></h4>
+            <input id="invoiceID" type="hidden" value="">
         </div>
             @if($invoices)
                 @foreach($invoices as $invoice)
                     <div class="col-md-3" style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}margin:0px !important;padding:0px !important;border: 1px solid black">
-                    <a id="{{$invoice->id}}" class="btn btn-lg" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
+                    <a id="{{$invoice->id}}" customer-id="{{$invoice->customer_id}}" name="{{$invoice->getCustomerFullname()}}" class="invoices-list btn btn-lg" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
                             <b><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerFirstName()}}</li></b>
                             <b><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerLastName()}}</li></b>
                             <b><li style="color:#000;list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getTotalPrice()}}$<br /></li></b>
@@ -212,7 +213,7 @@
                         </a>
                     </div>
                     <div class="col-md-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a class="btn btn-lg btn-default disabled" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6vh;padding-left:7vh;height:9vh;">
+                        <a id="createInvoice" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6vh;padding-left:7vh;height:9vh;">
                             Créer<br />facture 
                         </a>
                     </div>
@@ -268,16 +269,16 @@ $(document).ready(function() {
         $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
 
         $('.cart-item').on('click', function() {
-        var total = 0;
-        $(this).remove();
-        $('.item-price').each(function(key, item) {
-            total += Number(item.getAttribute('value'));
-        });
-        $('#totalPrice').attr('value', total);
-        $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
-    }); 
+            var total = 0;
+            $(this).remove();
+            $('.item-price').each(function(key, item) {
+                total += Number(item.getAttribute('value'));
+            });
+            $('#totalPrice').attr('value', total);
+            $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+        }); 
+    });
 
-});
     $('.numpad').on('click', function() {
         var html = "";
         var oldValue = $('#amount').attr('value');
@@ -332,7 +333,56 @@ $(document).ready(function() {
                 $(this).remove();
             })
         }
-    })
+    });
+
+    $('#createInvoice').on('click', function() {
+        if($('#customerId').attr('value') === '') {
+            $('#givenAmount').html('Client obligatoire pour facture');
+            $('#givenAmount').addClass('text-danger');
+            $('#givenAmount').removeClass('text-success');
+        } else {
+            var cartItems = [];
+            var customerID = $('#customerId').attr('value');
+            var invoiceID = $('#invoiceID').attr('value');
+            $('.cart-item').each(function(key, item) {
+                cartItems.push({
+                    'category_id': $(this).attr('category'),
+                    'item_id': $(this).attr('item'),
+                    'price' : $(this).attr('price'),
+                    'quantity': $(this).attr('quantity'),
+                });
+            });
+            $.ajax({
+                url: "/pos/invoice/edit",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    'customer_id': customerID,
+                    'items': cartItems,
+                    'cashier_id': {{$cashier_id}},
+                    'is_promotion' : false,
+                    'invoice_id': invoiceID,
+                    'menu': 'menu'
+                },
+                success: function (result) {
+                    $('.cart-item').each(function(key, item) {
+                        $('.cart-item').each(function() {
+                            $(this).remove();
+                        })
+                    });
+                    console.log('success');
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+                complete: function() {
+                    window.location.reload();
+                }
+            });
+        }
+    });
 
 
     $('#promotion').on('click', function() {
@@ -350,29 +400,38 @@ $(document).ready(function() {
         $('.cart-item').each(function() {
             $(this).remove();
         })
-    })
-});
+    });
 
-$('.physical-count').each(function() {
-    var item = $(this);
-    $.ajax({
-        url: "/pos/getInventory/" + $(this).attr('id') + "/",
-        type: "GET",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (result) {
-             if(Number(result) == 0) {
-                item.html('<h1 style="font-size: 70px;color:#f00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;margin-top:5px;">X</h1>');
-             } else if(Number(result) <= Number(item.attr('warning'))) {
-                item.html('<h1 style="font-size: 70px;color:#fF0;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;margin-top:5px;">!</h1>');
+    $('.physical-count').each(function() {
+        var item = $(this);
+        $.ajax({
+            url: "/pos/getInventory/" + $(this).attr('id') + "/",
+            type: "GET",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (result) {
+                if(Number(result) == 0) {
+                    item.html('<h1 style="font-size: 70px;color:#f00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;margin-top:5px;">X</h1>');
+                } else if(Number(result) <= Number(item.attr('warning'))) {
+                    item.html('<h1 style="font-size: 70px;color:#fF0;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;margin-top:5px;">!</h1>');
+                }
             }
-        }
-    })
-});
+        })
+    });
 
-function registerPayment(isPromotion) {
-    $('.cart-item').each(function(key, item) {
+    function registerPayment(isPromotion) {
+        var cartItems = [];
+        var customerID = $('#customerId').attr('value');
+        var invoiceID = $('#invoiceID').attr('value');
+        $('.cart-item').each(function(key, item) {
+            cartItems.push({
+                'category_id': $(this).attr('category'),
+                'item_id': $(this).attr('item'),
+                'price' : $(this).attr('price'),
+                'quantity': $(this).attr('quantity'),
+            });
+        });
         $.ajax({
             url: "/pos/pay/",
             type: "POST",
@@ -380,19 +439,17 @@ function registerPayment(isPromotion) {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                'category_id': $(this).attr('category'),
-                'item_id': $(this).attr('item'),
-                'price' : $(this).attr('price'),
-                'quantity': $(this).attr('quantity'),
+                'invoice_id': invoiceID,
+                'items': cartItems,
                 'cashier_id': {{$cashier_id}},
-                'customer_id': null,
                 'is_promotion' : isPromotion ? true : null,
                 'menu': 'menu',
-                'customer': $('#customerId').attr('value')
-
+                'customer_id': $('#customerId').attr('value'),
             },
             success: function (result) {
-                adjustInventory(item);
+                $('.cart-item').each(function(key, item) {
+                    adjustInventory(item);
+                });
                 console.log('success');
             },
             error: function (error) {
@@ -401,8 +458,8 @@ function registerPayment(isPromotion) {
             complete: function() {
                 window.location.reload();
             }
-        })
-    })
+        });
+    }
 
     function adjustInventory(item) {
         $.ajax({
@@ -425,18 +482,40 @@ function registerPayment(isPromotion) {
             }
         })
     }
-}
 
-$('.customer').on('click', function() {
-    if($(this).attr('value') === 'remove') {
-        $('#customerId').attr('value', '');
-        $('#customerId').html('')
-    } else {
-    $('#customerId').attr('value', $(this).attr('value'));
-    $('#customerId').html($(this).attr('name'))
-    }
+    $('.customer').on('click', function() {
+        if($(this).attr('value') === 'remove') {
+            $('#customerId').attr('value', '');
+            $('#customerId').html('')
+        } else {
+        $('#customerId').attr('value', $(this).attr('value'));
+        $('#customerId').html($(this).attr('name'))
+        }
+    });
+
+    $('.invoices-list').on('click', function() {
+        var customerName = $(this).attr('name');
+        var customerID = $(this).attr('customer-id');
+        var invoiceID = $(this).attr('id');
+        $('#customerId').attr('value', customerID);
+        $('#customerId').html(customerName);
+        $('#invoiceID').attr('value', invoiceID);
+        var html = '';
+        @foreach($transactions as $item)
+            if({{$item->invoice_id}} == invoiceID) {
+                html += '<a class="cart-item btn btn-lg" category="{{$item->category_id}}" item="{{$item->item_id}}" quantity="' + Number({{$item->quantity}}) + '" price="' + Number({{$item->price}}) + '" style="width:100%;border:1px solid #CCC; min-height:3vh;max-height:5vh;border-radius:5px;padding:0px;color:#000;">'+
+                            '<div class="col-md-6 text-left">'+
+                                '<h4><b>' + Number({{$item->quantity}}) + ' x {{$item->getItemName() ? $item->getItemName() : $item->getCategoryName()}}</b></h4>'+
+                            '</div>'+
+                            '<div class="col-md-6 text-right">'+
+                                '<h4><b class="item-price" value="' + Number({{$item->price  * $item->quantity}}) + '">' + (Number({{$item->price}}) * Number({{$item->quantity}})).toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}) + '</b></h4>'+
+                            '</div>'+
+                        '</a>';
+            }
+        @endforeach
+        $('#shoppingCart').html(html);
+    });
 });
-
 $(document).ready(function() {
     window.onInactive();
 });

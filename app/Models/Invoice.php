@@ -35,7 +35,7 @@ class Invoice extends Model
 
     public function getTotalPrice() {
         $amount = 0;
-        $items = DB::table('invoice_items')
+        $items = DB::table('bar_transactions')
         ->where('invoice_id', '=', $this->id)
         ->get();
 

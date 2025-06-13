@@ -52,6 +52,7 @@ class POSController extends Controller
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
             $customers = Customer::all()->sortBy('firstname');
+            $transactions = Transaction::where('payment_type', null)->get();
             if($cashier) {
                 return view('menu')->with([
                     'cashier_id' => $cashier->id,
@@ -59,8 +60,8 @@ class POSController extends Controller
                     'image' => env('LOGO'),
                     'phone_number'=> env('PHONE_NUMBER'),
                     'catalog' => $category->sortBy('id'),
-                    'invoices' => $invoices,
                     'customers' => $customers,
+                    'transactions' => $transactions,
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname
@@ -70,24 +71,37 @@ class POSController extends Controller
     }
 
     public function getInvoiceItems($invoiceID) {
-        return InvoiceItems::where('invoice_id', $invoiceID)->get();
+        return Transaction::where('invoice_id', $invoiceID)->get();
     }
 
     public function save(Request $request) {
         
         $cashier = Pin::find($request->cashier_id);
         if($cashier) {
-            $transaction = new Transaction;
-            $transaction->category_id = $request->category_id;
-            $transaction->item_id = ($request->item_id === 'undefined' ? null : $request->item_id);
-            $transaction->price = $request->price;
-            $transaction->quantity = $request->quantity;
-            $transaction->cashier_id = $request->cashier_id;
-            $transaction->customer_id = $request->customer_id;
-            $transaction->is_promotion =  (is_null($request->is_promotion) ? false : $request->is_promotion);
-            $transaction->created_at;
-            $transaction->updated_at;
-            $transaction->save();
+             if(is_null($request->invoice_id)) {
+                $invoice = new Invoice;
+            } else {
+                $invoice = Invoice::find($request->invoice_id);
+                Transaction::where('invoice_id', $invoice->id)->delete();
+            }
+            $invoice->customer_id = $request->customer_id;
+            $invoice->status = 'paid';
+            $invoice->save();
+            foreach($request->items as $item) {
+                $transaction = new Transaction;
+                $transaction->category_id = $item['category_id'];
+                $transaction->item_id = ($item['item_id'] === 'undefined' ? null : $item['item_id']);
+                $transaction->price = $item['price'];
+                $transaction->quantity = $item['quantity'];
+                $transaction->cashier_id = $request->cashier_id;
+                $transaction->customer_id = $request->customer_id;
+                $transaction->is_promotion =  (is_null($request->is_promotion) ? false : $request->is_promotion);
+                $transaction->invoice_id = $invoice->id;
+                $transaction->created_at;
+                $transaction->updated_at;
+                $transaction->payment_type = null;
+                $transaction->save();
+            }
             return 200;
         }
         abort(403);
@@ -124,5 +138,37 @@ class POSController extends Controller
             }
         }
 
+    }
+    public function saveInvoice(Request $request) {
+        $cashier = Pin::find($request->cashier_id);
+
+        if($cashier) {
+            if(is_null($request->invoice_id)) {
+                $invoice = new Invoice;
+            } else {
+                $invoice = Invoice::find($request->invoice_id);
+                Transaction::where('invoice_id', $invoice->id)->delete();
+            }
+            $invoice->customer_id = $request->customer_id;
+            $invoice->status = 'unpaid';
+            $invoice->save();
+            foreach($request->items as $item) {
+                $transaction = new Transaction;
+                $transaction->category_id = $item['category_id'];
+                $transaction->item_id = ($item['item_id'] === 'undefined' ? null : $item['item_id']);
+                $transaction->price = $item['price'];
+                $transaction->quantity = $item['quantity'];
+                $transaction->cashier_id = $request->cashier_id;
+                $transaction->customer_id = $request->customer_id;
+                $transaction->is_promotion =  (is_null($request->is_promotion) ? false : $request->is_promotion);
+                $transaction->invoice_id = $invoice->id;
+                $transaction->created_at;
+                $transaction->updated_at;
+                $transaction->payment_type = null;
+                $transaction->save();
+            }
+            return 200;
+        }
+        abort(403);
     }
 }
