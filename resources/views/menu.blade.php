@@ -494,28 +494,58 @@ $(document).ready(function() {
     });
 
     $('.invoices-list').on('click', function() {
-        var customerName = $(this).attr('name');
-        var customerID = $(this).attr('customer-id');
-        var invoiceID = $(this).attr('id');
-        $('#customerId').attr('value', customerID);
-        $('#customerId').html(customerName);
-        $('#invoiceID').attr('value', invoiceID);
-        var html = '';
-        @foreach($transactions as $item)
-            if({{$item->invoice_id}} == invoiceID) {
-                html += '<a class="cart-item btn btn-lg" category="{{$item->category_id}}" item="{{$item->item_id}}" quantity="' + Number({{$item->quantity}}) + '" price="' + Number({{$item->price}}) + '" style="width:100%;border:1px solid #CCC; min-height:3vh;max-height:5vh;border-radius:5px;padding:0px;color:#000;">'+
-                            '<div class="col-md-6 text-left">'+
-                                '<h4><b>' + Number({{$item->quantity}}) + ' x {{$item->getItemName() ? $item->getItemName() : $item->getCategoryName()}}</b></h4>'+
-                            '</div>'+
-                            '<div class="col-md-6 text-right">'+
-                                '<h4><b class="item-price" value="' + Number({{$item->price  * $item->quantity}}) + '">' + (Number({{$item->price}}) * Number({{$item->quantity}})).toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}) + '</b></h4>'+
-                            '</div>'+
-                        '</a>';
-            }
-        @endforeach
-        $('#shoppingCart').html(html);
+        var newInvoiceID = $(this).attr('id');
+        if($('#invoiceID').attr('value') == newInvoiceID) {
+            $('#invoiceID').attr('value', '');
+            $('#customerId').attr('value', '');
+            $('#customerId').html('');
+            $('.cart-item').each(function() {
+                $(this).remove();
+                var total = 0;
+                $('#totalPrice').attr('value', total);
+                $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+            });
+        } else {
+            var customerName = $(this).attr('name');
+            var customerID = $(this).attr('customer-id');
+            var invoiceID = $(this).attr('id');
+            $('#customerId').attr('value', customerID);
+            $('#customerId').html(customerName);
+            $('#invoiceID').attr('value', invoiceID);
+            var html = '';
+            @foreach($transactions as $item)
+                if({{$item->invoice_id}} == invoiceID) {
+                    html += '<a class="cart-item btn btn-lg" category="{{$item->category_id}}" item="{{$item->item_id}}" quantity="' + Number({{$item->quantity}}) + '" price="' + Number({{$item->price}}) + '" style="width:100%;border:1px solid #CCC; min-height:3vh;max-height:5vh;border-radius:5px;padding:0px;color:#000;">'+
+                                '<div class="col-md-6 text-left">'+
+                                    '<h4><b>' + Number({{$item->quantity}}) + ' x {{$item->getItemName() ? $item->getItemName() : $item->getCategoryName()}}</b></h4>'+
+                                '</div>'+
+                                '<div class="col-md-6 text-right">'+
+                                    '<h4><b class="item-price" value="' + Number({{$item->price  * $item->quantity}}) + '">' + (Number({{$item->price}}) * Number({{$item->quantity}})).toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}) + '</b></h4>'+
+                                '</div>'+
+                            '</a>';
+                }
+            @endforeach
+            $('#shoppingCart').html(html);
+            var total = 0;
+            $('.item-price').each(function(key, item) {
+                total += Number(item.getAttribute('value'));
+            });
+            $('#totalPrice').attr('value', total);
+            $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+
+            $('.cart-item').on('click', function() {
+                var total = 0;
+                $(this).remove();
+                $('.item-price').each(function(key, item) {
+                    total += Number(item.getAttribute('value'));
+                });
+                $('#totalPrice').attr('value', total);
+                $('#totalPrice').html(total.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD'}));
+            }); 
+        }
     });
 });
+
 $(document).ready(function() {
     window.onInactive();
 });
