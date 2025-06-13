@@ -135,6 +135,15 @@
                             </div>
                         </div>
                     </div><!-- Modal end-->
+                    @if($hasKitshopAccess)
+                        <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                            <a id="kitshop" class="kitshop variable-price btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;background-image: url(); background-color: #ffffff;background-size: cover;background-repeat: no-repeat;background-position: center;" disabled>
+                                <span class="text-danger" style="z-index:99;position:absolute;margin:-25px;margin-top:5px;padding:0px"><h1 style="font-size: 70px;color:#F00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">X</h1></span>
+                                <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:4vh;{{null /*image*/? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}">Kitshop</li>
+                                <span style="margin-top:2px;padding:2px;{{null /*image*/ ? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}border-radius: 5px;opacity: 0.85;">Variable</span>
+                            </a>
+                        </div>
+                    @endif
             <!-- Fill out the rest of the blank square with empty button -->
             @for($i = 0; $i < 24; $i++)
                 <div class="col-md-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
