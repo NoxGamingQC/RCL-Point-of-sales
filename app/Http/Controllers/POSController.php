@@ -86,6 +86,11 @@ class POSController extends Controller
         return redirect('/pos/');
     }
 
+    public function kitshop() {
+        return view('kitshop')->with([
+        ]);
+    }
+
     public function getInvoiceItems($invoiceID) {
         return Transaction::where('invoice_id', $invoiceID)->get();
     }
