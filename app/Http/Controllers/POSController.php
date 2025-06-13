@@ -28,20 +28,31 @@ class POSController extends Controller
         ]);
     }
 
-    public function validateCashier($pin, $option) {
+    public function validateCashier(Request $request, $pin, $option) {
         $cashier = Pin::where('pin', '=', $pin)->first();
         if(!isset($cashier)) {
             $cashier = Pin::where('pin', '=', $pin)->where('pin', '=', 'all')->first();
         }
         if($cashier) {
-            if(in_array($option, explode(';', $cashier->access)) || $cashier->access == 'all') {
-                return response()->json([
-                    'id' => $cashier->id,
-                    'name' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname,
-                ]);
+            $hasMenuAccess = in_array('menu', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
+            $hasKitshopAccess = in_array('kitshop', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
+            if($option == 'menu') {
+                if(in_array('menu', $request->options) || in_array('kitshop', $request->options) || $cashier->access == 'all') {
+                    return response()->json([
+                        'id' => $cashier->id,
+                        'name' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname,
+                        'hasAllAccess' => $cashier->access == 'all',
+                        'hasMenuAccess' =>  $hasMenuAccess,
+                        'hasKitshopAccess' => $hasKitshopAccess,
+                    ]);
+                } else {
+                    abort(403);
+                }
             } else {
-                abort(403, 'access_denied');
+                //Future tab
             }
+        } else {
+            abort(403, 'access_denied');
         }
         abort(403, 'pin_error');
     }
@@ -53,6 +64,8 @@ class POSController extends Controller
             $invoices = Invoice::where('status','=', 'unpaid')->get();
             $customers = Customer::all()->sortBy('firstname');
             $transactions = Transaction::where('payment_type', null)->get();
+            $hasMenuAccess = in_array('menu', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
+            $hasKitshopAccess = in_array('kitshop', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
             if($cashier) {
                 return view('menu')->with([
                     'cashier_id' => $cashier->id,
@@ -62,6 +75,9 @@ class POSController extends Controller
                     'catalog' => $category->sortBy('id'),
                     'customers' => $customers,
                     'transactions' => $transactions,
+                    'hasAllAccess' => $cashier->access == 'all',
+                    'hasMenuAccess' =>  $hasMenuAccess,
+                    'hasKitshopAccess' => $hasKitshopAccess,
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname

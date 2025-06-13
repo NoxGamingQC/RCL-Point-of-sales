@@ -80,9 +80,19 @@ $('.menu-button').on('click', function() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'options': [
+                'menu',
+                'kitshop'
+            ]
+        },
         success: function (result) {
             $('#pin').html('<h3 class="text-success">Bonjour, ' + result.name + '</h3>');
-            window.location.replace("/pos/menu/" + result.id);
+            if(result.hasAllAccess || result.hasMenuAccess) {
+                window.location.replace("/pos/menu/" + result.id);
+            } else if(result.hasKitshopAccess) {
+                window.location.replace("/pos/kitshop/" + result.id);
+            }
         },
         error: function (error) {
             $('#pin').attr('value', '')
