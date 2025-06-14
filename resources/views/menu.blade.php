@@ -22,10 +22,10 @@
                     @if($invoices)
                         @foreach($invoices as $invoice)
                             <div class="col-3" style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}margin:0px !important;padding:0px !important;border: 1px solid black">
-                            <a id="{{$invoice->id}}" customer-id="{{$invoice->customer_id}}" name="{{$invoice->getCustomerFullname()}}" class="invoices-list btn btn-lg" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
-                                    <b><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerFirstName()}}</li></b>
-                                    <b><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerLastName()}}</li></b>
-                                    <b><li style="color:#000;list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getTotalPrice()}}$<br /></li></b>
+                                <a id="{{$invoice->id}}" customer-id="{{$invoice->customer_id}}" name="{{$invoice->getCustomerFullname()}}" class="invoices-list btn btn-lg" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
+                                    <b class="h5"><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerFirstName()}}</li></b>
+                                    <b class="h5"><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerLastName()}}</li></b>
+                                    <b class="h5"><li style="color:#000;list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getTotalPrice()}}$<br /></li></b>
                                 </a>
                             </div>
                         @endforeach
