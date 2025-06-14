@@ -41,8 +41,8 @@
             <a class="pin-erase btn btn-lg btn-default" style="border-radius:50%;padding-top:2%;padding-bottom:2%;padding-left:8%;padding-right:8%;"><h1><</h1></a>
             <br />
             <br />
-            <div class="text-center">
-                <button class="btn btn-lg btn-success">Sauvegarder</button>
+            <div class="d-grid text-center" style="padding:20px">
+                <button class="btn btn-lg btn-success" style="border: 5px solid black;box-shadow: 0px 0px 15px 5px white;">Sauvegarder</button>
             </div>
         </div>
     </div>
