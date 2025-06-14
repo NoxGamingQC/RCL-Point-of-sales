@@ -52,7 +52,7 @@
     </div>
     <div class="col-12" style="min-height:48vh;max-height:48vh;overflow:hidden;margin:0px;padding:0px">
         <div class="row">
-            <div id="items" class="col-7 text-center" style="overflow:hidden;margin:0px;padding:0px;">
+            <div id="items" class="col-8 text-center" style="overflow:hidden;margin:0px;padding:0px;">
                 <div class="row">
                     <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black">
                         <a class="btn btn-lg" href="/pos" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
@@ -221,20 +221,20 @@
                     </div>
                 </div>
             </div>
-        <div id="total-menu" class="col-2 text-center" style="min-height:49vh;max-height:49vh;overflow:hidden;margin:0px;padding:0px">
+        <div id="total-menu" class="col-1 text-center" style="min-height:49vh;max-height:49vh;overflow:hidden;margin:0px;padding:0px;writing-mode: vertical-rl;">
             <div class="row">
                 <div class="col-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a id="total" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;height:9vh;">
+                        <a id="total" class="btn btn-lg btn-default" style="min-height:16vh;max-height:12vh;height:100%;width:100%;padding-left:5vh;padding-right:5vh">
                             Total
                         </a>
                     </div>
                     <div class="col-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a id="createInvoice" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6vh;padding-left:7vh;height:9vh;">
-                            Créer<br />facture 
+                        <a id="createInvoice" class="btn btn-lg btn-default" style="min-height:16vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding-left:5vh;padding-right:5vh">
+                            Facture 
                         </a>
                     </div>
                     <div class="col-12" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                        <a id="promotion" class="btn btn-lg btn-default" style="min-height:16.5vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:6.8vh;padding-left:7vh;height:9vh;">
+                        <a id="promotion" class="btn btn-lg btn-default" style="min-height:16vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding-left:5vh;padding-right:5vh">
                             Promotion
                         </a>
                     </div>
