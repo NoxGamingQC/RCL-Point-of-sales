@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row" style="margin:0px;padding:0px;">
-    <div class="col-md-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
+    <div class="col-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
         <img src="{{env('LOGO')}}" alt="{{$name}}" style="margin-top:40%;width:85%">
         <br /><br />
         <h4>{{$phone_number}}</h4>
@@ -13,7 +13,7 @@
         <h2 class="developper-font"><b>Créé & maintenu par Service Technologique J.Bédard</b></h2>
         <h3 class="developper-font"><b>(819) 852-8705</b></h3>
     </div>
-    <div class="col-md-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
+    <div class="col-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
         <h1 id="pin" style="margin-top:30%;min-height:50px" value=""></h1>
         <br/>
         <br/>
@@ -35,7 +35,7 @@
         <a class="pinpad btn btn-lg btn-default" style="margin-left:32%;border-radius:50%;padding-top:5%;padding-bottom:5%;padding-left:12%;padding-right:12%;" value="0"><h1>0</h1></a>
         <a class="pin-erase btn btn-lg btn-default" style="border-radius:50%;padding-top:5%;padding-bottom:5%;padding-left:12%;padding-right:12%;"><h1><</h1></a>
     </div>
-    <div class="col-md-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
+    <div class="col-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
         <br />
         <a class="menu-button btn btn-lg btn-danger" style="margin-left:10%;padding-top:5%;padding-bottom:5%;padding-left:12%;width:90%;max-width:90%"><h1>Menu</h1></a>
         <br />

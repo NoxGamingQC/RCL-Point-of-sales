@@ -15,6 +15,8 @@ use App\Models\Pin;
 use App\Models\Catalog;
 use App\Models\Item;
 use App\Models\Transaction;
+use App\Models\KitshopItem;
+use App\Models\KitshopTransaction;
 use Illuminate\Http\Request;
 
 class POSController extends Controller
@@ -63,6 +65,7 @@ class POSController extends Controller
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
             $customers = Customer::all()->sortBy('firstname');
+            $kitshopItems = KitshopItem::all()->sortBy('name');
             $transactions = Transaction::where('payment_type', null)->get();
             $hasMenuAccess = in_array('menu', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
             $hasKitshopAccess = in_array('kitshop', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
@@ -78,6 +81,7 @@ class POSController extends Controller
                     'hasAllAccess' => $cashier->access == 'all',
                     'hasMenuAccess' =>  $hasMenuAccess,
                     'hasKitshopAccess' => $hasKitshopAccess,
+                    'kitshopItems' => $kitshopItems,
                     'catalogImages' => isset($catalogImages) ? $catalogImages->getObjects() : [],
                     'invoices' => isset($invoices) ? $invoices : [],
                     'cashierName' => isset($cashier->lastname) ? ($cashier->firstname . ' ' . $cashier->lastname[0] . '.') : $cashier->firstname
@@ -87,7 +91,9 @@ class POSController extends Controller
     }
 
     public function kitshop() {
+        $items = KitshopItem::all()->sortBy('name');
         return view('kitshop')->with([
+            'items' => $items
         ]);
     }
 
