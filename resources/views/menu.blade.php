@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12" style="min-height:49vh;max-height:49vh;overflow:hidden;margin:0px;padding:0px">
+    <div class="col-12" style="min-height:48vh;max-height:48vh;overflow:hidden;margin:0px;padding:0px">
         <div class="row">
             <div id="items" class="col-7 text-center" style="overflow:hidden;margin:0px;padding:0px;">
                 <div class="row">
