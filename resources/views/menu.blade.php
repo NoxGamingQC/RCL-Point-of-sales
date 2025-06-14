@@ -21,7 +21,7 @@
                     </div>
                     @if($invoices)
                         @foreach($invoices as $invoice)
-                            <div class="col-3" style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}margin:0px !important;padding:0px !important;border: 1px solid black">
+                            <div class="col-4" style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}margin:0px !important;padding:0px !important;border: 1px solid black">
                                 <a id="{{$invoice->id}}" customer-id="{{$invoice->customer_id}}" name="{{$invoice->getCustomerFullname()}}" class="invoices-list btn btn-lg" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
                                     <b class="h5"><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerFirstName()}}</li></b>
                                     <b class="h5"><li style="{{Carbon\Carbon::create($invoice->created_at)->addWeeks(1)->lessThan(Carbon\Carbon::create()) ? 'background:#c41d1d;color:#FFF !important;' : 'color:#000 !important;'}}list-style-type: none;overflow:hidden;padding:2px;border-radius: 5px;opacity: 0.85;">{{$invoice->getCustomerLastName()}}</li></b>
@@ -32,17 +32,19 @@
                     @endif
                 </div>
             </div>
-            <div id="shoppingCart" class="col-5" style="min-height:42vh;max-height:42vh;background:#F8F8F8;padding:0px;overflow:hidden !important;">
-            </div>
-            <div class="col-5 text-start" style="min-height:3vh;">
-                <div class="row">
-                    <div class="col-6 text-start">
-                        <h4><b>Total</b></h4>
-                    </div>
-                    <div class="col-6 text-end">
-                        <h4 class="text-danger"><b id="totalPrice" value="">0,00 $</b></h4>
-                    </div>
-                    <div class="col-4">
+            <div class="col-5">
+                <div id="shoppingCart" class="col-12" style="min-height:42vh;max-height:42vh;background:#F8F8F8;padding:0px;overflow:hidden !important;">
+                </div>
+                <div class="col-12 text-start" style="min-height:3vh;">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <h4><b>Total</b></h4>
+                        </div>
+                        <div class="col-6 text-end">
+                        <div class="col-4">
+                        </div>
+                            <h4 class="text-danger text-end"><b id="totalPrice" value="">0,00 $</b></h4>
+                        </div>
                     </div>
                 </div>
             </div>
