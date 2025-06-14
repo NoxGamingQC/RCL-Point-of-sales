@@ -54,14 +54,14 @@
         <div class="row">
             <div id="items" class="col-7 text-center" style="overflow:hidden;margin:0px;padding:0px;">
                 <div class="row">
-                    <div class="col-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
+                    <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black">
                         <a class="btn btn-lg" href="/pos" style="min-height:12vh;max-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;overflow:hidden;border-radius:0px;">
                             <li style="margin-top:3vh;list-style-type: none;overflow:hidden;padding-top:0px !important;padding:2px;color: #f00;border-radius: 5px;opacity: 0.85;">Fermer<br />session</li>
                         </a>
                     </div>                        
                     @foreach($catalog as $item)
-                        <div class="col-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
-                            <a id="{{$item->id}}" {{$item->getQuantity() == 0 ? ('price=' . $item->price. ' name=' . $item->name) : ''}} class="{{$item->getQuantity() == 0 ? 'items' : ''}} btn btn-lg" data-bs-toggle="modal" data-bs-target="#{{$item->name}}Modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;background-image: url({{$item->image}}); background-color: #ffffff;background-size: cover;background-repeat: no-repeat;background-position: center;">
+                        <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black;">
+                            <a id="{{$item->id}}" {{$item->getQuantity() == 0 ? ('price=' . $item->price. ' name=' . $item->name) : ''}} class="{{$item->getQuantity() == 0 ? 'items' : ''}} btn btn-lg" data-bs-toggle="modal" data-bs-target="#{{$item->name}}Modal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;background-image: url({{$item->image}}); background-color: #ffffff;background-size: cover;background-repeat: no-repeat;background-position: center; border: none;border-radius:0px;">
                                 @if(!is_null($item->inventory) && $item->inventory == 0)
                                     <span class="text-danger" style="z-index:99;position:absolute;margin:-25px;margin-top:-12px;padding:0px"><h1 style="font-size: 70px;color:#F00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">X</h1></span>
                                 @elseif(!is_null($item->inventory) && $item->inventory <= $item->alert_threshold)
@@ -108,7 +108,7 @@
                         @endif
                     @endforeach
                     <!-- Button trouver client -->
-                    <div class="col-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
+                    <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black;">
                         <a id="" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#customerModal" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;">
                             <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:3vh;color: #000;">Trouver<br />client</li>
                         </a>
@@ -123,13 +123,13 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
-                                                <div class="col-2" style="border:1px solid black;margin;0px;padding:0px;">
+                                                <div class="col-2" style="border:0.5px solid black;margin;0px;padding:0px;">
                                                     <a class="customer btn btn-lg" style="color:red;min-height:75px !important;max-height:75px !important; height:100%;width:100%;" data-bs-dismiss="modal" value="remove">
                                                         <b>Enlever client</b>
                                                     </a>
                                                 </div>
                                                 @foreach($customers as $customer)
-                                                    <div class="col-2" style="border:1px solid black;margin;0px;padding:0px;">
+                                                    <div class="col-2" style="border:0.5px solid black;margin;0px;padding:0px;">
                                                         <a class="customer btn btn-lg" style="color:black;min-height:75px !important;max-height:75px !important; height:100%;width:100%;" data-bs-dismiss="modal" value="{{$customer->id}}" name="{{$customer->firstname}} {{$customer->lastname}}">
                                                             <b>{{$customer->firstname}}<br />{{$customer->lastname}}</b>
                                                         </a>
@@ -144,8 +144,8 @@
                                 </div>
                             </div><!-- Modal end-->
                             @if($hasKitshopAccess)
-                                <div class="col-2" style="margin:0px !important;padding:0px !important;border: 1px solid black;">
-                                    <a id="kitshop" class="kitshop variable-price btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;background-image: url(); background-color: #ffffff;background-size: cover;background-repeat: no-repeat;background-position: center;" disabled>
+                                <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black;">
+                                    <a id="kitshop" class="kitshop variable-price btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;min-height:12vh;max-height:12vh;background-image: url(); background-color: #ffffff;background-size: cover;background-repeat: no-repeat;background-position: center; border: none" disabled>
                                         <span class="text-danger" style="z-index:99;position:absolute;margin:-25px;margin-top:5px;padding:0px"><h1 style="font-size: 70px;color:#F00;text-shadow:1px 1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;">X</h1></span>
                                         <li style="font-weight: bold;padding-top:50px;list-style-type:none;overflow:hidden;padding-top:4vh;{{null /*image*/? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}">Kitshop</li>
                                         <span style="margin-top:2px;padding:2px;{{null /*image*/ ? 'color: #FFF; text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;' : 'color:#000;'}}border-radius: 5px;opacity: 0.85;">Variable</span>
@@ -154,8 +154,8 @@
                             @endif
                             <!-- Fill out the rest of the blank square with empty button -->
                             @for($i = 0; $i < 24; $i++)
-                                <div class="col-2" style="margin:0px !important;padding:0px !important;border: 1px solid black">
-                                    <a class="btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important;">
+                                <div class="col-2" style="margin:0px !important;padding:0px !important;border: 0.5px solid black">
+                                    <a class="btn btn-lg disabled" style="min-height:12vh;height:100%;width:100%; margin:0px !important;padding:0px !important; border: none">
                                         
                                     </a>
                                 </div>

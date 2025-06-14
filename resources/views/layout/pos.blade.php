@@ -25,8 +25,8 @@
             }
         </style>
     </head>
-    <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;width:1024px !important;height:768px !important">
-        <div id="content" style="margin:0px !important;padding:0px !important">
+    <body style="background-color:#FFF;overflow:hidden;margin:0px !important;padding:0px !important;min-width:1024px !important;min-height:768px !important;">
+        <div id="content" style="margin:0px !important;padding: 0px !important">
             @yield('content')
         </div>
         <script type="text/javascript">
