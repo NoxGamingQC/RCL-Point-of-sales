@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 class POSController extends Controller
 {
     public function index() {
-        return view('lock')->with([
+        return view('view.pos.lock')->with([
             'name' => env('NAME'),
             'image' => env('IMAGE'),
             'phone_number' => env('PHONE_NUMBER'),
@@ -70,7 +70,7 @@ class POSController extends Controller
             $hasMenuAccess = in_array('menu', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
             $hasKitshopAccess = in_array('kitshop', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
             if($cashier) {
-                return view('menu')->with([
+                return view('view.pos.menu')->with([
                     'cashier_id' => $cashier->id,
                     'name' => env('NAME'),
                     'image' => env('LOGO'),
@@ -92,7 +92,7 @@ class POSController extends Controller
 
     public function kitshop() {
         $items = KitshopItem::all()->sortBy('name');
-        return view('kitshop')->with([
+        return view('view.pos.kitshop')->with([
             'items' => $items
         ]);
     }

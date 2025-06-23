@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+//Auth
+Auth::routes();
+Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@logout');
+
+//Standard
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+
+//POS
 Route::get('/pos', 'App\Http\Controllers\POSController@index');
 Route::post('/pos/validate/{pin}/{option}', 'App\Http\Controllers\POSController@validateCashier');
 Route::get('/pos/menu/{cashier_id}', 'App\Http\Controllers\POSController@menu');
@@ -12,18 +20,7 @@ Route::post('/pos/pay', 'App\Http\Controllers\POSController@save');
 Route::post('/pos/invoice/edit', 'App\Http\Controllers\POSController@saveInvoice');
 Route::post('/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
 
-Auth::routes();
-Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@logout');
-
-
-Route::get('/', function () {
-    return redirect('/login');
-});
-
-Route::get('/home', function () {
-    return redirect('/dashboard');
-});
-
+//Dashboard
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 Route::get('/transactions', 'App\Http\Controllers\DashboardController@transactions');
 Route::get('/transactions/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getTransactions');
