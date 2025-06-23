@@ -9,6 +9,12 @@ Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@logout');
 
 //Standard
 Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::get('/about_us/history', 'App\Http\Controllers\HomeController@history');
+Route::get('/about_us/mission', 'App\Http\Controllers\HomeController@mission');
+Route::get('/about_us/our_team', 'App\Http\Controllers\HomeController@ourTeam');
+Route::get('/contact_us', 'App\Http\Controllers\HomeController@contact');
+Route::get('/picture_gallery', 'App\Http\Controllers\HomeController@pictureGallery');
+Route::get('/tools', 'App\Http\Controllers\HomeController@tools');
 
 //POS
 Route::get('/pos', 'App\Http\Controllers\POSController@index');
