@@ -1,4 +1,4 @@
-<nav class="navbar nav-pills nav-fill navbar-expand-lg bg-body-tertiary no-print sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary no-print sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img src="/logo.png" alt="{{env('NAME')}}" height="30px">
@@ -7,12 +7,12 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav nav-pills nav-fill me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {{isset($active_tab) ? ($active_tab === 'welcome' ? 'active' : '') : ''}}" aria-current="page" href="/">Accueil</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">À propos</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">À propos</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/about_us/history">Histoire</a></li>
                         <li><a class="dropdown-item" href="/about_us/mission">Mission</a></li>
@@ -30,7 +30,7 @@
                 </li>
                 @auth
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Gestion</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Gestion</a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
                                 <a class="dropdown-item" aria-current="page" href="/dashboard">Tableau de bord</a>

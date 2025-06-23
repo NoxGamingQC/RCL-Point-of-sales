@@ -25,10 +25,10 @@ class LogoutController extends Controller
         $request->session()->regenerateToken();
         if(isset($errors)) {
             if(count($errors->all()) > 0) {
-                return redirect('/login')->withErrors($errors->all());
+                return redirect('/')->withErrors($errors->all());
             }
         } else {
-            return redirect('/login');
+            return redirect('/');
         }
     }
 }
