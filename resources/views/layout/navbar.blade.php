@@ -9,21 +9,55 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'dashboard' ? 'active' : '') : ''}}" aria-current="page" href="/dashboard">Tableau de bord</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'welcome' ? 'active' : '') : ''}}" aria-current="page" href="/">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">À propos</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/about_us/history">Histoire</a></li>
+                        <li><a class="dropdown-item" href="/about_us/mission">Mission</a></li>
+                        <li><a class="dropdown-item" href="/about_us/our_team">Notre équipe</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'transactions' ? 'active' : '') : ''}}" href="/transactions">Transactions</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'picture_gallery' ? 'active' : '') : ''}}" aria-current="page" href="/picture_gallery">Gallerie d'images</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'inventory' ? 'active' : '') : ''}}" href="/items">Articles</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'tools' ? 'active' : '') : ''}}" aria-current="page" href="/tools">Outils</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'inventory' ? 'active' : '') : ''}}" href="/inventory">Inventaire</a>
+                    <a class="nav-link {{isset($active_tab) ? ($active_tab === 'contact_us' ? 'active' : '') : ''}}" aria-current="page" href="/contact_us">Nous joindre</a>
                 </li>
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Gestion</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="dropdown-item" aria-current="page" href="/dashboard">Tableau de bord</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/transactions">Transactions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/items">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/inventory">Inventaire</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endauth
             </ul>
+            @auth
             <form class="d-flex" method="get" action="/logout">
                 <button class="nav-link" aria-disabled="true">Déconnexion</button>
             </form>
+            @endauth
+            @guest
+                <form class="d-flex" method="get" action="/login">
+                    <button class="nav-link" aria-disabled="true">Connexion</button>
+                </form>
+            @endguest
         </div>
     </div>
 </nav>

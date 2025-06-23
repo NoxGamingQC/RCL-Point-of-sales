@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function index() {
         return view('view.welcome')->with([
+            'active_tab' => 'welcome'
         ]);
     }
 
@@ -29,16 +30,19 @@ class HomeController extends Controller
 
     public function pictureGallery() {
         return view('view.picture_gallery')->with([
+            'active_tab' => 'picture_gallery'
         ]);
     }
 
     public function tools() {
         return view('view.tools')->with([
+            'active_tab' => 'tools'
         ]);
     }
 
     public function contact() {
         return view('view.contact_us')->with([
+            'active_tab' => 'contact_us'
         ]);
     }
 }
