@@ -75,7 +75,7 @@ $('.pin-erase').on('click', function() {
 $('.menu-button').on('click', function() {
     var pin = $('#pin').attr('value');
     $.ajax({
-        url: "/pos/validate/" + pin + "/menu",
+        url: "/pos/validate/" + pin + "/menu?token={{$token}}",
         type: "POST",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -89,9 +89,9 @@ $('.menu-button').on('click', function() {
         success: function (result) {
             $('#pin').html('<h3 class="text-success">Bonjour, ' + result.name + '</h3>');
             if(result.hasAllAccess || result.hasMenuAccess) {
-                window.location.replace("/pos/menu/" + result.id);
+                window.location.replace("/pos/menu/" + result.id + '?token={{$token}}');
             } else if(result.hasKitshopAccess) {
-                window.location.replace("/pos/kitshop/" + result.id);
+                window.location.replace("/pos/kitshop/" + result.id + '?token={{$token}}');
             }
         },
         error: function (error) {

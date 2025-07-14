@@ -16,13 +16,16 @@ use App\Models\Catalog;
 use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\KitshopItem;
+use App\Models\OauthToken;
 use App\Models\KitshopTransaction;
 use Illuminate\Http\Request;
 
 class POSController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        OauthToken::validate($request);
         return view('view.pos.lock')->with([
+            'token' => $request->query()['token'],
             'name' => env('NAME'),
             'image' => env('IMAGE'),
             'phone_number' => env('PHONE_NUMBER'),
@@ -31,6 +34,7 @@ class POSController extends Controller
     }
 
     public function validateCashier(Request $request, $pin, $option) {
+        OauthToken::validate($request);
         $cashier = Pin::where('pin', '=', $pin)->first();
         if(!isset($cashier)) {
             $cashier = Pin::where('pin', '=', $pin)->where('pin', '=', 'all')->first();
@@ -59,8 +63,9 @@ class POSController extends Controller
         abort(403, 'pin_error');
     }
 
-    public function menu($cashierID)
+    public function menu(Request $request, $cashierID)
     {
+            OauthToken::validate($request);
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
@@ -71,6 +76,7 @@ class POSController extends Controller
             $hasKitshopAccess = in_array('kitshop', explode(';', $cashier->access)) || $cashier->access == 'all' ? true : false;
             if($cashier) {
                 return view('view.pos.menu')->with([
+                    'token' => $request->query()['token'],
                     'cashier_id' => $cashier->id,
                     'name' => env('NAME'),
                     'image' => env('LOGO'),
@@ -90,19 +96,22 @@ class POSController extends Controller
         return redirect('/pos/');
     }
 
-    public function kitshop() {
+    public function kitshop(Request $request) {
+        OauthToken::validate($request);
         $items = KitshopItem::all()->sortBy('name');
         return view('view.pos.kitshop')->with([
+            'token' => $request->query()['token'],
             'items' => $items
         ]);
     }
 
-    public function getInvoiceItems($invoiceID) {
+    public function getInvoiceItems(Request $request, $invoiceID) {
+        OauthToken::validate($request);
         return Transaction::where('invoice_id', $invoiceID)->get();
     }
 
     public function save(Request $request) {
-        
+        OauthToken::validate($request);
         $cashier = Pin::find($request->cashier_id);
         if($cashier) {
              if(is_null($request->invoice_id)) {
@@ -135,6 +144,7 @@ class POSController extends Controller
     }
 
     public function sellInventory(Request $request) {
+        OauthToken::validate($request);
         $category = Catalog::where('id', $request->category_id)->first();
         try {
             $item = Item::where('id', $request->item_id)->first();
@@ -167,6 +177,7 @@ class POSController extends Controller
 
     }
     public function saveInvoice(Request $request) {
+        OauthToken::validate($request);
         $cashier = Pin::find($request->cashier_id);
 
         if($cashier) {
