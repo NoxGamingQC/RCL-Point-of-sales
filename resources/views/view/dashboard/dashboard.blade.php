@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-12">
             <h4>Bonjour {{explode(' ', $user->name)[0]}},</h4>
-                <h4>L'impression de rapport pour le bar est désormais disponible dans l'onglet <a class="text-danger" href="/transactions">Transactions</a> ci haut.</h4>
+                <h4>L'impression de rapport pour le bar est désormais disponible dans l'onglet <span class="text-primary">Gestion</span> puis selectionner <a class="text-danger" href="/transactions">Transactions</a> ci haut.</h4>
                 
             </div>
         </div>
