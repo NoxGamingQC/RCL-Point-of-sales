@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use App\Models\Catalog;
 use Carbon\Carbon;
@@ -14,27 +15,30 @@ class DashboardController extends Controller
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
-                $transactions = Transaction::where('is_canceled', false)->get();
-                $todayTransactions = Transaction::whereDate('created_at', Carbon::today('America/Toronto'))->where('is_canceled', false)->get();
-                $yesterdayTransactions = Transaction::whereDate('created_at', Carbon::yesterday('America/Toronto'))->where('is_canceled', false)->get();
-                $yesterdayCount = 0;
-                $todayTransactionCount = 0;
-
-                foreach($yesterdayTransactions as $yesterdayTransaction) {
-                    $yesterdayCount += $yesterdayTransaction->price; 
+                $transactionsSumByMonth = [];
+                $transactionByCategories = [];
+                for($month = 1; $month <= 12; $month++) {
+                    array_push(
+                        $transactionsSumByMonth,
+                        Transaction::where('is_canceled', false)->whereMonth('created_at', $month)->get()->sum('price')
+                    );
                 }
-                foreach($todayTransactions as $todayTransaction) {
-                    $todayTransactionCount += $todayTransaction->price; 
+                $transactionCategories = Catalog::all()->sortBy('id');
+                foreach($transactionCategories as $category) {
+                    array_push($transactionByCategories, [
+                        'name' => $category->name,
+                        'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('category_id', $category->id)->get()->sum('price'),
+                    ]);
                 }
                 return view('view.dashboard.dashboard')->with([
                     'active_tab' => 'dashboard',
                     'user' => $user,
-                    'transaction' => $transactions,
-                    'yesterday_count' => explode('.', number_format($yesterdayCount, 2))[0] . ',' . explode('.', number_format($yesterdayCount, 2))[1] . ' $',
-                    'today_count' => explode('.', number_format($todayTransactionCount, 2))[0] . ',' . explode('.', number_format($todayTransactionCount, 2))[1] . ' $',
+                    'categories_name' => collect($transactionByCategories)->pluck('name')->toArray(),
+                    'categories_sum' => collect($transactionByCategories)->pluck('sum')->toArray(),
+                    'transactions_sum_by_month' => $transactionsSumByMonth
                 ]);
             } else {
-                return redirect('/logout')->withErrors(['message' => 'Accès non authorisé']);
+                return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);
             }
         }
         return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
@@ -67,7 +71,6 @@ class DashboardController extends Controller
                 $carbonEndDay = new Carbon($secondDay);
                 $endDay = $carbonEndDay->addDays(1)->format('Y-m-d') ." 06:59:59";
                 $transactions = Transaction::whereBetween('created_at', [$startDay, $endDay])->orderBy('created_at','DESC')->get();
-                
                 $transactionsTotalCount = Transaction::whereBetween('created_at', [$startDay, $endDay])->totalCount();
 
                 return view('view.dashboard.transactions')->with([
