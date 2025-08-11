@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use App\Models\Catalog;
+use App\Models\Item;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -18,6 +19,7 @@ class DashboardController extends Controller
                 $transactionsSumByMonth = [];
                 $transactionsSumByMonthLastYear = [];
                 $transactionByCategories = [];
+                $transactionByItems = [];
                 for($month = 1; $month <= 12; $month++) {
                     array_push(
                         $transactionsSumByMonth,
@@ -37,11 +39,24 @@ class DashboardController extends Controller
                         ]);
                     }
                 }
+
+                $transactionItems = Item::all()->sortBy('id');
+                foreach($transactionItems as $item) {
+                    if($item->name !== 'Carte') {
+                        array_push($transactionByItems, [
+                            'name' => str_replace('\'', '\\\'', $item->name),
+                            'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('item_id', $item->id)->get()->sum('price'),
+                        ]);
+                    }
+                }
+
                 return view('view.dashboard.dashboard')->with([
                     'active_tab' => 'dashboard',
                     'user' => $user,
                     'categories_name' => collect($transactionByCategories)->pluck('name')->toArray(),
                     'categories_sum' => collect($transactionByCategories)->pluck('sum')->toArray(),
+                    'items_name' => collect($transactionByItems)->pluck('name')->toArray(),
+                    'items_sum' => collect($transactionByItems)->pluck('sum')->toArray(),
                     'transactions_sum_by_month' => $transactionsSumByMonth,
                     'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear
                 ]);

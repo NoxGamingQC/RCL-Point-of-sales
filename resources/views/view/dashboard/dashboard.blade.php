@@ -19,6 +19,9 @@
                     <div class="col-md-6">
                         <canvas id="mostSoldCategories" style="width:100%;max-width:700px; max-height:300px;"></canvas>
                     </div>
+                    <div class="col-md-6">
+                        <canvas id="mostSoldItems" style="width:100%;max-width:700px; max-height:300px;"></canvas>
+                    </div>
                 </div>
             </div>
             <h4>L'impression de rapport pour le bar est désormais disponible dans l'onglet <span class="text-primary">Gestion</span> puis selectionner <a class="text-danger" href="/transactions">Transactions</a> ci haut.</h4>
@@ -107,6 +110,32 @@
                 title: {
                     display: true,
                     text: 'Ventes annuelles par catégories',
+                }
+            }
+        }
+    });
+
+
+    const mostSoldItemsCanvas = document.getElementById('mostSoldItems').getContext('2d');
+    const mostSoldItems = new Chart(mostSoldItemsCanvas, {
+        type: 'doughnut', // e.g., 'line', 'pie', 'doughnut', 'scatter'
+        data: {
+        labels: ('{!!implode(',', $items_name)!!}').split(','),
+        datasets: [{
+                label: 'Catégories les plus vendus',
+                data: ('{{implode(',', $items_sum)}}').split(','),
+            
+                borderWidth: 2
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Ventes annuelles par articles',
                 }
             }
         }
