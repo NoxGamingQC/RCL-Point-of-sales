@@ -16,26 +16,34 @@ class DashboardController extends Controller
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
                 $transactionsSumByMonth = [];
+                $transactionsSumByMonthLastYear = [];
                 $transactionByCategories = [];
                 for($month = 1; $month <= 12; $month++) {
                     array_push(
                         $transactionsSumByMonth,
-                        Transaction::where('is_canceled', false)->whereMonth('created_at', $month)->get()->sum('price')
+                        Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price')
+                    );
+                    array_push(
+                        $transactionsSumByMonthLastYear,
+                        Transaction::where('is_canceled', false)->whereYear('created_at', date('Y') -1 )->whereMonth('created_at', $month)->get()->sum('price')
                     );
                 }
                 $transactionCategories = Catalog::all()->sortBy('id');
                 foreach($transactionCategories as $category) {
-                    array_push($transactionByCategories, [
-                        'name' => $category->name,
-                        'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('category_id', $category->id)->get()->sum('price'),
-                    ]);
+                    if($category->name !== 'Carte') {
+                        array_push($transactionByCategories, [
+                            'name' => $category->fullname,
+                            'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('category_id', $category->id)->get()->sum('price'),
+                        ]);
+                    }
                 }
                 return view('view.dashboard.dashboard')->with([
                     'active_tab' => 'dashboard',
                     'user' => $user,
                     'categories_name' => collect($transactionByCategories)->pluck('name')->toArray(),
                     'categories_sum' => collect($transactionByCategories)->pluck('sum')->toArray(),
-                    'transactions_sum_by_month' => $transactionsSumByMonth
+                    'transactions_sum_by_month' => $transactionsSumByMonth,
+                    'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear
                 ]);
             } else {
                 return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);
