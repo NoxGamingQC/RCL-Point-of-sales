@@ -13,8 +13,11 @@ class OauthToken extends Model
     const UPDATED_AT = 'updated_at';
 
     public function scopeValidate($query, $request) {
-        $token = $request->query()['token'];
-        $entry = $query->where('token', $token)->first();
-        return $entry ? true : abort(403);
+        if($request->query()) {
+            $token = $request->query()['token'];
+            $entry = $query->where('token', $token)->first();
+            return $entry ? true : abort(404);
+        }
+        abort(404);
     }
 }
