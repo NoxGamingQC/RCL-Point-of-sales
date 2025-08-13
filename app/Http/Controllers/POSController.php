@@ -209,4 +209,12 @@ class POSController extends Controller
         }
         abort(403);
     }
+
+    public function inventoryMenu (Request $request, $cashierID) {
+        OauthToken::validate($request);
+        $cashier = Pin::find($cashierID);  
+        return view('view.pos.inventory')->with([
+
+        ]);
+    }
 }

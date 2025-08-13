@@ -40,7 +40,7 @@
         <a class="menu-button btn btn-lg btn-danger" style="margin-left:10%;padding-top:5%;padding-bottom:5%;padding-left:12%;width:90%;max-width:90%"><h1>Menu</h1></a>
         <br />
         <br />
-        <a class="btn btn-lg btn-danger disabled" disabled style="margin-left:10%;padding-top:5%;padding-bottom:5%;padding-left:12%;width:90%;max-width:90%"><h1>Inventaire</h1></a>
+        <a class="inventory-button btn btn-lg btn-danger" style="margin-left:10%;padding-top:5%;padding-bottom:5%;padding-left:12%;width:90%;max-width:90%"><h1>Inventaire</h1></a>
         <br />
         <br /><a class="btn btn-lg btn-danger disabled" disabled style="margin-left:10%;padding-top:5%;padding-bottom:5%;padding-left:12%;width:90%;max-width:90%"><h1>Rapport</h1></a>
         <br />
@@ -93,6 +93,40 @@ $('.menu-button').on('click', function() {
             } else if(result.hasKitshopAccess) {
                 window.location.replace("/pos/kitshop/" + result.id + '?token={{$token}}');
             }
+        },
+        error: function (error) {
+            $('#pin').attr('value', '')
+            if (error.responseJSON.message === 'pin_error') {
+                $('#pin').html('<h3 class="text-danger">NIP ERRONÉ</h3>');
+            } else if(error.responseJSON.message === 'access_denied') {
+                $('#pin').html('<h3 class="text-danger">ACCÈS REFUSÉ</h3>');
+            } else {
+                $('#pin').html('<h3 class="text-danger">ERREUR INCONNU</h3>');
+                window.location.reload();
+            }
+        }
+    });
+});
+
+
+
+
+$('.inventory-button').on('click', function() {
+    var pin = $('#pin').attr('value');
+    $.ajax({
+        url: "/pos/validate/" + pin + "/menu?token={{$token}}",
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            'options': [
+                'inventory'
+            ]
+        },
+        success: function (result) {
+            $('#pin').html('<h3 class="text-success">Bonjour, ' + result.name + '</h3>');
+            window.location.replace("/pos/inventory/" + result.id + '?token={{$token}}');
         },
         error: function (error) {
             $('#pin').attr('value', '')
