@@ -1,6 +1,8 @@
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery-ui';
+import 'bootstrap-datepicker';
+
 
 window.$ = window.jQuery = $;
 
