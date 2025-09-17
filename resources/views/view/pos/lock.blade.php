@@ -3,13 +3,14 @@
 
 <div class="row" style="margin:0px;padding:0px;">
     <div class="col-4 text-center" style="min-height:100vh;overflow:hidden;margin:0px;padding:0px;">
-        <img src="{{env('LOGO')}}" alt="{{$name}}" style="margin-top:40%;width:85%">
+        <img src="{{env('LOGO')}}" alt="{{$name}}" height="100px" style="margin-top:40%;">
         <br /><br />
         <h4>{{$phone_number}}</h4>
         <h4>{!!$address!!}</h4>
         <br />
         <hr />
         <br />
+        <img src="/images/logo_dev.svg" width="75px">
         <h2 class="developper-font"><b>Créé & maintenu par Service Technologique J.Bédard</b></h2>
         <h3 class="developper-font"><b>(819) 852-8705</b></h3>
     </div>
