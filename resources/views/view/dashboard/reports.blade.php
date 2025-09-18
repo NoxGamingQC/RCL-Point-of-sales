@@ -10,20 +10,26 @@
     <br />
     <div class="row">
         @foreach($transaction_categories as $category)
-            <div class="col-sm-3">
-                <h4>{{$category->fullname}}: {{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id, true),2)}}$)</h4>
-                <hr />
-                @if(count($category->getVariations()) > 0)
-                    @foreach($category->getVariations() as $item)
-                    <b>{{Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByItem($item->id)}} x {{$item->name}}:&nbsp</b>{{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByItem($item->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByItem($item->id, true),2)}}$)
+            @if(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByCategory($category->id) > 0)
+                <div class="col-sm-3">
+                    <h4>{{$category->fullname}}: {{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id, true),2)}}$)</h4>
+                    <hr />
+                    @if(count($category->getVariations()) > 0)
+                        @foreach($category->getVariations() as $item)
+                            @if(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByItem($item->id) > 0)
+                            <b>{{Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByItem($item->id)}} x {{$item->name}}:&nbsp</b>{{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByItem($item->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByItem($item->id, true),2)}}$)
+                            <br />
+                            @endif
+                        @endforeach
+                    @else
+                        @if(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByCategory($category->id) > 0)
+                            <b>{{Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByCategory($category->id)}} x Article de base:&nbsp</b>{{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id, true),2)}}$)
+                            <br />
+                        @endif
+                    @endif
                     <br />
-                    @endforeach
-                @else
-                    <b>{{Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByCategory($category->id)}} x Article de base:&nbsp</b>{{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id, true),2)}}$)
-                    <br />
-                @endif
-                <br />
-            </div>
+                </div>
+            @endif
         @endforeach
     </div>
     <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$ ({{Number_format($promotionTotalCount,2)}}$)</b></h4>
