@@ -447,11 +447,6 @@
   .no-print, .no-print * {
     display: none !important;
   }
-  @page {
-    size: landscape;
-    page-orientation: upright;
-    margin-bottom: 0;
-  }
 }
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)

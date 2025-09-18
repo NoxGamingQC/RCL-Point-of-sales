@@ -4,14 +4,28 @@
 ?>
 @extends('layout.app')
 @section('content')
+<style>
+@page {
+    @top-center { 
+        content: '{{env('NAME')}} - Rapport du bar ({{$firstDay->format('Y-m-d')}} - {{$secondDay->format('Y-m-d')}})'; 
+    }
+    @bottom-left { 
+        content: 'Généré par Services Tech. J.Bédard'
+    }
+    @bottom-right { 
+        content: counter(page)  '/' counter(pages)
+    }
+}
+</style>
 <div class="container-fluid">
     <br />
-    <h3>Rapport du {{$firstDay->format('Y-m-d')}} au {{$secondDay->format('Y-m-d')}}</h3>
+    <h3><img src="/images/logo.png" width="75px"> <span>Ventes du {{$firstDay->format('Y-m-d')}} au {{$secondDay->format('Y-m-d')}}</span></h3>
+    <br />
     <br />
     <div class="row">
         @foreach($transaction_categories as $category)
             @if(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->quantityByCategory($category->id) > 0)
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <h4>{{$category->fullname}}: {{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id),2)}}$ ({{Number_format(Transaction::whereBetween('created_at', [Carbon::parse($firstDay)->format('Y-m-d')." 04:00:00", Carbon::parse($secondDay)->addDays(1)->format('Y-m-d') ." 03:59:59"])->countByCategory($category->id, true),2)}}$)</h4>
                     <hr />
                     @if(count($category->getVariations()) > 0)
@@ -32,6 +46,8 @@
             @endif
         @endforeach
     </div>
+    <hr />
+    <br />
     <h4><b>Grand total: {{Number_format($transactionsTotalCount,2)}}$ ({{Number_format($promotionTotalCount,2)}}$)</b></h4>
     <br class="no-print" />
     <p class="no-print"><i>N.B. Les montant des articles passé en promotion sont entre parenthèse.</i></p>

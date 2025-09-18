@@ -2,9 +2,4 @@
     .no-print, .no-print * {
         display: none !important;
     }
-    @page {
-        size: landscape;
-        page-orientation: upright;
-        margin-bottom: 0;
-    }
 }
