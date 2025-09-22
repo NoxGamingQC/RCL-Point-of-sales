@@ -34,6 +34,3 @@ echo.
 echo:
 
 pause
-
-:Exit
-exit
