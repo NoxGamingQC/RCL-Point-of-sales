@@ -14,4 +14,4 @@ echo Génération complété.
 
 echo Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard)
 
-pause
+PAUSE
