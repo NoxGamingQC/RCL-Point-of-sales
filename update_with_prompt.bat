@@ -4,13 +4,16 @@ echo Mise a jour des fichiers du site...
 git pull origin master
 echo Mise a jour des fichiers du site complete.
 
-start cmd /k "yarn install"
+
+
+echo Installations des dependances...
+start cmd "yarn install"
+echo Dependances intalles
 
 
 echo Generation du design du site à partir des fichiers mis à jour...
-@echo off
-start cmd /k "yarn run dev"
+start cmd "yarn run dev"
 echo Generation complete.
-@echo on
 
+echo Une fois tout les autres terminals fermés, la mise à jour sera complété.
 pause
