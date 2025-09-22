@@ -1,17 +1,15 @@
 @echo on
 
-echo Mise à jour des fichiers du site...
+echo Mise a jour des fichiers du site...
 git pull origin master
-echo Mise à jour des fichiers du site complété.
+echo Mise a jour des fichiers du site complete.
 
-pause
-
-REM echo Mise à jour des dépendance NPM
-REM yarn install
-REM echo Mise à jour des dépendance NPM complété.
-
-echo Génération du désign du site à partir des fichiers mis à jour...
+echo Generation du design du site à partir des fichiers mis à jour...
 npm run dev
-echo Génération complété.
+echo Generation complete.
+
+echo Mise à jour des dépendance NPM
+yarn install
+echo Mise à jour des dépendance NPM complété.
 
 pause
