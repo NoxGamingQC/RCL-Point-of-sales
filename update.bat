@@ -26,6 +26,7 @@ if %ERRORLEVEL%==0 (
 :SilentCall
 cd %WorkingDirectory%
 git pull origin master
+yarn install
 npm run dev
 
 
