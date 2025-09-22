@@ -16,6 +16,6 @@ echo Generation du design du site a partir des fichiers mis a jour...
 start /wait cmd /c "yarn run dev"
 echo Generation complete.
 
-echo
+
 echo Mise a jour complete.
 pause
