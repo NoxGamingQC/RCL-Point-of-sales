@@ -7,12 +7,12 @@ echo Mise a jour des fichiers du site complete.
 
 
 echo Installations des dependances...
-start cmd "yarn install"
+start cmd /c "yarn install"
 echo Dependances intalles
 
 
 echo Generation du design du site à partir des fichiers mis à jour...
-start cmd "yarn run dev"
+start cmd /c "yarn run dev"
 echo Generation complete.
 
 echo Une fois tout les autres terminals fermés, la mise à jour sera complété.
