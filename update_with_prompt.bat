@@ -6,7 +6,7 @@ echo Mise a jour des fichiers du site complete.
 
 echo Generation du design du site à partir des fichiers mis à jour...
 @echo off
-npm run dev
+yarn run mix
 echo Generation complete.
 @echo on
 
