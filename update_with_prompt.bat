@@ -13,7 +13,7 @@ cecho {0A}Génération du désign du site à partir des fichiers mis à jour...{
 npm run dev
 cecho {0A}Génération complété.{#}{\n}
 
-cecho {0A}Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard){#}{\n}
+cecho {0E}Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard){#}{\n}
 
 pause
 
