@@ -13,3 +13,4 @@ yarn install
 echo Mise à jour des dépendance NPM complété.
 
 pause
+pause
