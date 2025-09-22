@@ -12,6 +12,4 @@ echo Génération du désign du site à partir des fichiers mis à jour...
 npm run dev
 echo Génération complété.
 
-echo Mise à jour complété. Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard
-
 PAUSE
