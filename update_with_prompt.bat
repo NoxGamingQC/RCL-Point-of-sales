@@ -3,6 +3,7 @@
 echo Mise à jour des fichiers du site...
 git pull origin master
 echo Mise à jour des fichiers du site complété.
+pause
 
 echo Mise à jour des dépendance NPM
 yarn install
