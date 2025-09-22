@@ -1,36 +1,20 @@
 @echo on
 
-SETLOCAL EnableDelayedExpansion
-for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do     rem"') do (
-  set "DEL=%%a"
-)
 
-call :colorEcho 0a "Mise à jour des fichiers du site..."
-echo.
-echo:
+cecho {0A}Mise à jour des fichiers du site...{#}{\n}
 git pull origin master
-echo:
-call :colorEcho 0a "Mise à jour des fichiers du site complété."
-echo.
-echo:
+cecho {0A}Mise à jour des fichiers du site complété.{#}{\n}
 
-call :colorEcho 0a "Mise à jour des dépendance NPM"
-echo.
-echo:
+cecho {0A}Mise à jour des dépendance NPM{#}{\n}
 yarn install
-call :colorEcho 0a "Mise à jour des dépendance NPM complété."
-echo.
-echo:
+cecho {0A}Mise à jour des dépendance NPM complété.{#}{\n}
 
-call :colorEcho 0a "Génération du désign du site à partir des fichiers mis à jour..."
-echo.
+cecho {0A}Génération du désign du site à partir des fichiers mis à jour...{#}{\n}
 npm run dev
-call :colorEcho 0a "Génération complété."
-echo.
+cecho {0A}Génération complété.{#}{\n}
 
-echo:
-call :colorEcho 0e "Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard)"
-echo.
-echo:
+cecho {0A}Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard){#}{\n}
 
 pause
+
+exit
