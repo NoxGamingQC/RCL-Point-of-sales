@@ -1,19 +1,33 @@
 @echo on
 
-
-cecho {0A}Mise à jour des fichiers du site...{#}{\n}
+color 0A
+echo Mise à jour des fichiers du site...
+color 0F
+echo :
 git pull origin master
-cecho {0A}Mise à jour des fichiers du site complété.{#}{\n}
+echo :
+color 0A
+echo Mise à jour des fichiers du site complété.
 
-cecho {0A}Mise à jour des dépendance NPM{#}{\n}
+echo Mise à jour des dépendance NPM
+color 0F
+echo :
 yarn install
-cecho {0A}Mise à jour des dépendance NPM complété.{#}{\n}
+echo :
+color 0A
+echo Mise à jour des dépendance NPM complété.
 
-cecho {0A}Génération du désign du site à partir des fichiers mis à jour...{#}{\n}
+echo Génération du désign du site à partir des fichiers mis à jour...
+color 0F
+echo :
 npm run dev
-cecho {0A}Génération complété.{#}{\n}
+echo :
+color 0A
+echo Génération complété.
+echo :
 
-cecho {0E}Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard){#}{\n}
+color 0E
+echo Mise à jour complété. (Si des erreurs sont survenus, merci d'en aviser Service Tech. J.Bédard)
 
 pause
 
