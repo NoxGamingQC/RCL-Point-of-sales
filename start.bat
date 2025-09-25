@@ -24,7 +24,7 @@ if %ERRORLEVEL%==0 (
 
 
 :SilentCall
-cd %WorkingDirectory%
+cd C:\POS
 git pull origin master
 php artisan serve --host 192.168.2.13 --port 80
 
