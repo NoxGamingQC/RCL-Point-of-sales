@@ -1,11 +1,9 @@
 @echo off
-REM if [%1]==[] (
-REM    goto PreSilentCall
-REM ) else (
-REM     goto SilentCall
-REM )
-
-goto SilentCall
+if [%1]==[] (
+    goto PreSilentCall
+) else (
+    goto SilentCall
+)
 
 :PreSilentCall
 REM Insert code here you want to have happen BEFORE this same .bat file is called silently
@@ -26,10 +24,10 @@ if %ERRORLEVEL%==0 (
 
 
 :SilentCall
-cd C:\POS
-REM git pull origin master
+cd %WorkingDirectory%
+git pull origin master
+REM start cmd /c "php artisan schedule:work"
 php artisan serve --host 192.168.2.13 --port 80
 
 
 :Exit
-exit
