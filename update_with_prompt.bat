@@ -1,4 +1,4 @@
-@echo on
+@echo off
 
 echo Mise a jour des fichiers du site...
 git pull origin master
