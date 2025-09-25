@@ -26,8 +26,8 @@ if %ERRORLEVEL%==0 (
 :SilentCall
 cd %WorkingDirectory%
 git pull origin master
-REM start cmd /c "php artisan schedule:work"
 php artisan serve --host 192.168.2.13 --port 80
 
 
 :Exit
+exit
