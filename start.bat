@@ -1,9 +1,11 @@
 @echo off
-if [%1]==[] (
-    goto PreSilentCall
-) else (
-    goto SilentCall
-)
+REM if [%1]==[] (
+REM    goto PreSilentCall
+REM ) else (
+REM     goto SilentCall
+REM )
+
+goto SilentCall
 
 :PreSilentCall
 REM Insert code here you want to have happen BEFORE this same .bat file is called silently
