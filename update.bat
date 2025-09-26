@@ -26,7 +26,7 @@ if %ERRORLEVEL%==0 (
 :SilentCall
 cd %WorkingDirectory%
 git pull origin master
-start update-ip.bat
+start jobs.bat
 composer install
 yarn install
 npm run dev
