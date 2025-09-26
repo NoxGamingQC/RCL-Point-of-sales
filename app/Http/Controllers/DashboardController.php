@@ -21,10 +21,12 @@ class DashboardController extends Controller
                 $transactionByCategories = [];
                 $transactionByItems = [];
                 for($month = 1; $month <= 12; $month++) {
-                    array_push(
-                        $transactionsSumByMonth,
-                        Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price')
-                    );
+                    if (Carbon::now()->month >= $month) {
+                        array_push(
+                            $transactionsSumByMonth,
+                            Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') ? Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') : 0
+                        );
+                    }
                     array_push(
                         $transactionsSumByMonthLastYear,
                         Transaction::where('is_canceled', false)->whereYear('created_at', date('Y') -1 )->whereMonth('created_at', $month)->get()->sum('price')
