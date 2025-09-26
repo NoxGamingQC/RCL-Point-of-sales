@@ -31,6 +31,6 @@ REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
 php artisan serve --host 192.168.2.13 --port 80
 
-start start.bat
+start /k start.bat
 
 :Exit
