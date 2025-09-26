@@ -28,7 +28,10 @@ REM :SilentCall
 cd %WorkingDirectory%
 REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
-taskkill /IM php.exe /F >nul 2>&1
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":80"') do (
+    taskkill /PID %%p /F >nul 2>&1
+)
+git pull origin master
 php artisan serve --host 192.168.2.13 --port 80
 
 :EXIT
