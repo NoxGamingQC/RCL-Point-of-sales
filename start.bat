@@ -1,4 +1,4 @@
-@echo on
+@echo off
 
 REM if [%1]==[] (
 REM     goto PreSilentCall
@@ -25,9 +25,7 @@ REM )
 
 
 REM :SilentCall
-pause
 cd %WorkingDirectory%
-pause
 git pull origin master
 REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
