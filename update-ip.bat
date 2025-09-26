@@ -25,11 +25,8 @@ if %ERRORLEVEL%==0 (
 
 :SilentCall
 cd %WorkingDirectory%
-git pull origin master
-start update-ip.bat
-composer install
-yarn install
-npm run dev
+
+php artisan schedule:work
 
 
 :Exit

@@ -26,7 +26,6 @@ if %ERRORLEVEL%==0 (
 
 :SilentCall
 cd %WorkingDirectory%
-REM start cmd /c "php artisan schedule:work"
 :retry
 git pull origin master
 for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":80"') do (
