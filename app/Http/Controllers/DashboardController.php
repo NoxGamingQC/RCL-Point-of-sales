@@ -25,9 +25,9 @@ class DashboardController extends Controller
                 for($month = 1; $month <= 12; $month++) {
                     if (Carbon::now()->month >= $month) {
                         if(Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') > Transaction::where('is_canceled', false)->whereYear('created_at', date('Y')-1)->whereMonth('created_at', $month)->get()->sum('price')) {
-                            $transactionColor = 'rgb(13, 121, 9)';
+                            $transactionColor = 'rgba(18, 196, 12, 1)';
                         } elseif(Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') == Transaction::where('is_canceled', false)->whereYear('created_at', date('Y')-1)->whereMonth('created_at', $month)->get()->sum('price')) {
-                            $transactionColor = 'rgba(247, 217, 47, 1)';
+                            $transactionColor = 'rgba(250, 225, 83, 1)';
                         } else {
                             $transactionColor = 'rgba(233, 47, 14, 1)';
                         }

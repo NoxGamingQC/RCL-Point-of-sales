@@ -49,6 +49,7 @@
             }, {
                 label: [new Date().getFullYear()],
                 data: [{{implode(',', $transactions_sum_by_month)}}],
+                pointRadius: 5,
                 backgroundColor: [
                     @foreach($transactions_color_by_month as $key => $value)
                      '{{$value}}',
