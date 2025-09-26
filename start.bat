@@ -32,5 +32,4 @@ php artisan serve --host 192.168.2.13 --port 80
 
 start /k start.bat
 
-:Exit
 exit
