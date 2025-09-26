@@ -28,10 +28,18 @@ REM :SilentCall
 cd %WorkingDirectory%
 REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
+git pull origin master
+:retry
 for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":80"') do (
     taskkill /PID %%p /F >nul 2>&1
 )
-git pull origin master
 php artisan serve --host 192.168.2.13 --port 80
+timeout /t 3 >nul
+netstat -ano | findstr ":80" >nul
+if errorlevel 1 (
+    echo [Error] Failed to bind port 80. Retrying in 5 seconds...
+    timeout /t 5 >nul
+    goto retry
+)
 
 :EXIT
