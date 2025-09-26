@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 if 1==0 (
 if [%1]==[] (
