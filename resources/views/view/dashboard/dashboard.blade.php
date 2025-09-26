@@ -46,7 +46,8 @@
                 borderColor: [
                     'rgb(121, 121, 121, 0.5)',
                 ],
-                borderWidth: 1
+                borderWidth: 1,
+                tension: 0.1
             }, {
                 label: [new Date().getFullYear()],
                 data: [{{implode(',', $transactions_sum_by_month)}}],
@@ -60,7 +61,8 @@
                     'rgb(0,0,0)',
                 ],
                 
-                borderWidth: 1
+                borderWidth: 1,
+                tension: 0.1
             }
         ]
         },
