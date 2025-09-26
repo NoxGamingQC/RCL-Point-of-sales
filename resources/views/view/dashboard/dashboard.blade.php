@@ -39,13 +39,14 @@
         datasets: [{
                 label: [new Date().getFullYear() -1],
                 data: [{{implode(',', $transactions_sum_by_month_last_year)}}],
+                pointRadius: 1,
                 backgroundColor: [
                     'rgb(121, 121, 121,0.2)',
                 ],
                 borderColor: [
                     'rgb(121, 121, 121, 0.5)',
                 ],
-                borderWidth: 2
+                borderWidth: 1
             }, {
                 label: [new Date().getFullYear()],
                 data: [{{implode(',', $transactions_sum_by_month)}}],
