@@ -19,12 +19,25 @@ class DashboardController extends Controller
                 $transactionsSumByMonth = [];
                 $transactionsSumByMonthLastYear = [];
                 $transactionByCategories = [];
+                $transactionColorsByMonth = [];
                 $transactionByItems = [];
+                $transactionColor = '';
                 for($month = 1; $month <= 12; $month++) {
                     if (Carbon::now()->month >= $month) {
-                        array_push(
+                        if(Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') > Transaction::where('is_canceled', false)->whereYear('created_at', date('Y')-1)->whereMonth('created_at', $month)->get()->sum('price')) {
+                            $transactionColor = 'rgb(13, 121, 9)';
+                        } elseif(Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') == Transaction::where('is_canceled', false)->whereYear('created_at', date('Y')-1)->whereMonth('created_at', $month)->get()->sum('price')) {
+                            $transactionColor = 'rgba(247, 217, 47, 1)';
+                        } else {
+                            $transactionColor = 'rgba(233, 47, 14, 1)';
+                        }
+                        array_push( 
                             $transactionsSumByMonth,
                             Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') ? Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') : 0
+                        );
+                        array_push(
+                            $transactionColorsByMonth,
+                            '' .$transactionColor
                         );
                     }
                     array_push(
@@ -60,7 +73,8 @@ class DashboardController extends Controller
                     'items_name' => collect($transactionByItems)->pluck('name')->toArray(),
                     'items_sum' => collect($transactionByItems)->pluck('sum')->toArray(),
                     'transactions_sum_by_month' => $transactionsSumByMonth,
-                    'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear
+                    'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear,
+                    'transactions_color_by_month' => $transactionColorsByMonth
                 ]);
             } else {
                 return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);

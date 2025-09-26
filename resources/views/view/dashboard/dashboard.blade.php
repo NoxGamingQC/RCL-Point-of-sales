@@ -50,12 +50,15 @@
                 label: [new Date().getFullYear()],
                 data: [{{implode(',', $transactions_sum_by_month)}}],
                 backgroundColor: [
-                    'rgb(36, 228, 29,0.2)',
+                    @foreach($transactions_color_by_month as $key => $value)
+                     '{{$value}}',
+                    @endforeach
                 ],
                 borderColor: [
-                    'rgb(13, 121, 9)',
+                    'rgb(0,0,0)',
                 ],
-                borderWidth: 2
+                
+                borderWidth: 1
             }
         ]
         },
