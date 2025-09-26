@@ -10,7 +10,7 @@ REM Insert code here you want to have happen BEFORE this same .bat file is calle
 REM such as setting paths like the below two lines
 
 set WorkingDirWithSlash=%~dp0
-set WorkingDirectory=C:\POS
+set WorkingDirectory=%WorkingDirWithSlash:~0,-1%
 
 REM below code will run this same file silently, but will go to the SilentCall section
 cd C:\Windows\System32
