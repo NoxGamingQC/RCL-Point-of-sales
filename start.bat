@@ -1,4 +1,6 @@
 @echo off
+
+if 1==0 (
 if [%1]==[] (
     goto PreSilentCall
 ) else (
@@ -24,12 +26,14 @@ if %ERRORLEVEL%==0 (
 
 
 :SilentCall
+)
 cd %WorkingDirectory%
 git pull origin master
 REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
 cd %WorkingDirectory%
-php artisan serve --host 192.168.2.13 --port 8000
+php artisan serve --host 192.168.2.13 --port 80
 
+PAUSE
 
 :Exit
