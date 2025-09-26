@@ -28,6 +28,7 @@ REM :SilentCall
 cd %WorkingDirectory%
 REM start cmd /c "php artisan schedule:work"
 REM net stop http /y
+taskkill /IM php.exe /F >nul 2>&1
 php artisan serve --host 192.168.2.13 --port 80
 
 :EXIT
