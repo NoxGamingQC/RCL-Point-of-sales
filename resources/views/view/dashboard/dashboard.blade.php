@@ -41,7 +41,7 @@
                                 @php
                                     $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
                                 @endphp
-                                <h2 class="card-title text-center">{{$total_transactions_sum ? $formatter->formatCurrency($total_transactions_sum, 'CAD') : '0'}}</h2>
+                                <h2 class="card-title text-center">{{$total_transactions_sum ? $formatter->formatCurrency($total_transactions_sum, 'CAD') : $formatter->formatCurrency(0, 'CAD')}}</h2>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,10 @@
                                 <h6 class="card-title">Dépenses</h6>
                             </div>
                             <div class="card-body">
-                                <h2 class="card-title text-center">0</h2>
+                                @php
+                                    $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                @endphp
+                                <h2 class="card-title text-center">{{$formatter->formatCurrency(0, 'CAD')}}</h2>
                             </div>
                         </div>
                     </div>
