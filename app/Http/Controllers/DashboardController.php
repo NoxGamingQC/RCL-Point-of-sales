@@ -18,6 +18,7 @@ class DashboardController extends Controller
                 $user = Auth::user();
                 $transactionsSumByMonth = [];
                 $transactionsSumByMonthLastYear = [];
+                $transactionsSumByMonth2YearAgo = [];
                 $transactionByCategories = [];
                 $transactionColorsByMonth = [];
                 $transactionByItems = [];
@@ -44,6 +45,10 @@ class DashboardController extends Controller
                         $transactionsSumByMonthLastYear,
                         Transaction::where('is_canceled', false)->whereYear('created_at', date('Y') -1 )->whereMonth('created_at', $month)->get()->sum('price')
                     );
+                    array_push(
+                        $transactionsSumByMonth2YearAgo,
+                        Transaction::where('is_canceled', false)->whereYear('created_at', date('Y') -2 )->whereMonth('created_at', $month)->get()->sum('price')
+                    );
                 }
                 $transactionCategories = Catalog::all()->sortBy('id');
                 foreach($transactionCategories as $category) {
@@ -55,6 +60,11 @@ class DashboardController extends Controller
                     }
                 }
 
+                usort($transactionByCategories, function($a, $b) {
+                    return $b['sum'] <=> $a['sum'];
+                });
+                $top5Categories = array_slice($transactionByCategories, 0, 5);
+
                 $transactionItems = Item::all()->sortBy('id');
                 foreach($transactionItems as $item) {
                     if($item->name !== 'Carte') {
@@ -64,6 +74,10 @@ class DashboardController extends Controller
                         ]);
                     }
                 }
+                usort($transactionByItems, function($a, $b) {
+                    return $b['sum'] <=> $a['sum'];
+                });
+                $top10Items = array_slice($transactionByItems, 0, 10);
 
                 return view('view.dashboard.dashboard')->with([
                     'active_tab' => 'dashboard',
@@ -74,7 +88,10 @@ class DashboardController extends Controller
                     'items_sum' => collect($transactionByItems)->pluck('sum')->toArray(),
                     'transactions_sum_by_month' => $transactionsSumByMonth,
                     'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear,
-                    'transactions_color_by_month' => $transactionColorsByMonth
+                    'transactions_sum_by_month_2_years_ago' => $transactionsSumByMonth2YearAgo,
+                    'transactions_color_by_month' => $transactionColorsByMonth,
+                    'top_5_categories' => $top5Categories,
+                    'top_10_items' => $top10Items,
                 ]);
             } else {
                 return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);
