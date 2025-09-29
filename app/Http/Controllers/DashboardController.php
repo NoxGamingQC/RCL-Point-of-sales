@@ -99,7 +99,7 @@ class DashboardController extends Controller
                     $poppyAccount =  Finances::where('account_type', 2)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
                     array_push($finances['poppy'],$poppyAccount ? $poppyAccount->amount : null);
                 }
-                $activeMemberCount = Customer::where('last_year_paid', date('Y'))->get() ? count(Customer::where('last_year_paid', date('Y'))->get()) : 0;
+                $activeMemberCount = Customer::where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ? count(Customer::where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ) : 0;
                 return view('view.dashboard.dashboard')->with([
                     'total_transactions' => $totalTransactions,
                     'total_transactions_sum' => $totalTransactionsSum,
