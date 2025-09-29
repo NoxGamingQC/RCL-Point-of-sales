@@ -185,10 +185,10 @@
                 pointRadius: 5,
                 pointHoverRadius: 10,
                 backgroundColor: [
-                    'rgb(175, 175, 175,0.1)',
+                    'rgb(175, 175, 175,0.5)',
                 ],
                 borderColor: [
-                    'rgb(175, 175, 175, 0.3)',
+                    'rgb(175, 175, 175, 1)',
                 ],
                 borderWidth: 1,
                 tension: 0.4
