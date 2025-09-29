@@ -23,6 +23,9 @@ class DashboardController extends Controller
                 $transactionColorsByMonth = [];
                 $transactionByItems = [];
                 $transactionColor = '';
+                $totalTransactions = Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->get();
+                $totalTransactionsSum = $totalTransactions->sum('price');
+                
                 for($month = 1; $month <= 12; $month++) {
                     if (Carbon::now()->month >= $month) {
                         if(Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->get()->sum('price') > Transaction::where('is_canceled', false)->whereYear('created_at', date('Y')-1)->whereMonth('created_at', $month)->get()->sum('price')) {
@@ -80,6 +83,8 @@ class DashboardController extends Controller
                 $top10Items = array_slice($transactionByItems, 0, 10);
 
                 return view('view.dashboard.dashboard')->with([
+                    'total_transactions' => $totalTransactions,
+                    'total_transactions_sum' => $totalTransactionsSum,
                     'active_tab' => 'dashboard',
                     'user' => $user,
                     'categories_name' => collect($transactionByCategories)->pluck('name')->toArray(),

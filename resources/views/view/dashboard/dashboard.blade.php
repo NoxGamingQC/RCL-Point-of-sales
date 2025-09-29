@@ -10,50 +10,133 @@
             <br />
         </div>
         <div class="col-md-12">
-            <h4>Bonjour {{explode(' ', $user->name)[0]}},</h4>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <canvas id="monthlyTransaction" style="width:100%;max-width:700px; max-height:300px;"></canvas>
+                    <div class="col-md-3">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Commande totales</h6>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title text-center">{{$total_transactions ? count($total_transactions) : '0'}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Membres en règles</h6>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title text-center">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Revenue</h6>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                @endphp
+                                <h2 class="card-title text-center">{{$total_transactions_sum ? $formatter->formatCurrency($total_transactions_sum, 'CAD') : '0'}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Dépenses</h6>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title text-center">0</h2>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <canvas id="mostSoldCategories" style="width:100%;max-width:700px; max-height:300px;"></canvas>
-                    </div>
-                    <div class="col-md-12">
-                        <br /><br /><br />
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Catégories les plus vendus</h3>
-                        <ol>
-                            @if($top_5_categories)
-                                @foreach($top_5_categories as $key => $value)
-                                    @php
-                                        $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
-                                    @endphp
-                                    <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
-                                @endforeach
-                            @else
-                                <p>Aucune données pour l'instant</p>
-                            @endif
-                        </ol>
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Ventes totales mensuel</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="monthlyTransaction" style="width:100%;max-width:700px; max-height:300px;"></canvas>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <h3>Articles les plus vendus</h3>
-                        <ol>
-                            @if($top_10_items)
-                                @foreach($top_10_items as $key => $value)
-                                    @php
-                                        $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
-                                    @endphp
-                                    <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
-                                @endforeach
-                            @else
-                                <p>Aucune données pour l'instant</p>
-                            @endif
-                        </ol>
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Ventes par catégories</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="mostSoldCategories" style="width:100%;max-width:700px; max-height:300px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Ventes et dépenses</h5>
+                            </div>
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Catégories les plus vendus en {{date('Y')}}</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    @if($top_5_categories)
+                                        @foreach($top_5_categories as $key => $value)
+                                            @php
+                                                $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                            @endphp
+                                            <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
+                                        @endforeach
+                                    @else
+                                        <h3 class="card-title">Aucune données pour l'instant<h3>
+                                    @endif
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6 class="card-title">Articles les plus vendus en {{date('Y')}}</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    @if($top_10_items)
+                                        @foreach($top_10_items as $key => $value)
+                                            @php
+                                                $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                            @endphp
+                                            <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
+                                        @endforeach
+                                    @else
+                                        <h3 class="card-title">Aucune données pour l'instant</h3>
+                                    @endif
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom:5%">
+                            <div class="card-header">
+                                <h6>Finances</h6>
+                            </div>
+                            <div class="card-body">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <br /><br />
             </div>
         </div>
     </div>
@@ -111,8 +194,19 @@
         options: {
             plugins: {
                 title: {
+                    display: false,
+                },
+                legend: {
                     display: true,
-                    text: 'Ventes totales',
+                    labels: {
+                        generateLabels: (chart) => {
+                            // Generate the labels with the default function
+                            const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                            labels[0].fillStyle =  'rgb(0, 200, 70)'
+                            
+                            return labels;
+                        },
+                    }
                 }
             },
             scales: {
