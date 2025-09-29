@@ -84,6 +84,7 @@
                                 <h6 class="card-title">Ventes et dépenses</h5>
                             </div>
                             <div class="card-body">
+                                <canvas id="sellAndExpenses" style="width:100%;max-width:700px; max-height:300px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -94,8 +95,8 @@
                             </div>
                             <div class="card-body">
                                 <ol>
-                                    @if($top_5_categories)
-                                        @foreach($top_5_categories as $key => $value)
+                                    @if($top_10_categories)
+                                        @foreach($top_10_categories as $key => $value)
                                             @php
                                                 $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
                                             @endphp
@@ -135,7 +136,7 @@
                                 <h6>Finances</h6>
                             </div>
                             <div class="card-body">
-                                
+                                <canvas id="finances" style="width:100%;max-width:700px; max-height:300px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -260,5 +261,124 @@
             }
         }
     });
+
+    const sellAndExpensesCanvas = document.getElementById('sellAndExpenses').getContext('2d');
+    const sellAndExpenses = new Chart(sellAndExpensesCanvas, {
+        type: 'line',
+        data: {
+        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août', 'Septembre', 'Octobre', 'Novembre' , 'Décembre'],
+        datasets: [{
+                label: 'Dépenses',
+                data: [],
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                backgroundColor: [
+                    'rgba(196, 12, 12, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(196, 12, 12, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                fill:false,
+            },{
+                label: 'Ventes',
+                data: [{{implode(',', $transactions_sum_by_month)}}],
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                backgroundColor: [
+                    'rgba(18, 196, 12, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(18, 196, 12, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                fill:true,
+            },
+        ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                },
+            },
+            scales: {
+                yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+                }]
+            }
+        }
+    });
+
+    const financesCanvas = document.getElementById('finances').getContext('2d');
+    const finances = new Chart(financesCanvas, {
+        type: 'line',
+        data: {
+        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août', 'Septembre', 'Octobre', 'Novembre' , 'Décembre'],
+        datasets: [{
+                label: 'Coquelicot',
+                data: [],
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                backgroundColor: [
+                    'rgba(196, 12, 12, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(196, 12, 12, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                fill:false,
+            },{
+                label: 'Chèque',
+                data: [],
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                backgroundColor: [
+                    'rgba(18, 196, 12, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(18, 196, 12, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                fill:false,
+            },{
+                label: 'Épargne',
+                data: [],
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                backgroundColor: [
+                    'rgba(12, 46, 196, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(12, 15, 196, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                fill:false,
+            },
+        ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                },
+            },
+            scales: {
+                yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+                }]
+            }
+        }
+    });
+    
 </script>  
 @endsection

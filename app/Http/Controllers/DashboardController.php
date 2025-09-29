@@ -66,7 +66,7 @@ class DashboardController extends Controller
                 usort($transactionByCategories, function($a, $b) {
                     return $b['sum'] <=> $a['sum'];
                 });
-                $top5Categories = array_slice($transactionByCategories, 0, 5);
+                $top10Categories = array_slice($transactionByCategories, 0, 10);
 
                 $transactionItems = Item::all()->sortBy('id');
                 foreach($transactionItems as $item) {
@@ -95,7 +95,7 @@ class DashboardController extends Controller
                     'transactions_sum_by_month_last_year' => $transactionsSumByMonthLastYear,
                     'transactions_sum_by_month_2_years_ago' => $transactionsSumByMonth2YearAgo,
                     'transactions_color_by_month' => $transactionColorsByMonth,
-                    'top_5_categories' => $top5Categories,
+                    'top_10_categories' => $top10Categories,
                     'top_10_items' => $top10Items,
                 ]);
             } else {
