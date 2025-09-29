@@ -196,6 +196,7 @@
         ]
         },
         options: {
+            spanGaps: true,
             plugins: {
                 title: {
                     display: false,
@@ -299,6 +300,7 @@
         ]
         },
         options: {
+            spanGaps: true,
             plugins: {
                 title: {
                     display: false,
@@ -321,7 +323,11 @@
         labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août', 'Septembre', 'Octobre', 'Novembre' , 'Décembre'],
         datasets: [{
                 label: 'Coquelicot',
-                data: [],
+                data: [
+                    @foreach($finances['poppy'] as $key => $value)
+                        {{$value ?  $value : 'null'}},
+                    @endforeach
+                ],
                 pointRadius: 5,
                 pointHoverRadius: 10,
                 backgroundColor: [
@@ -335,7 +341,11 @@
                 fill:false,
             },{
                 label: 'Chèque',
-                data: [],
+                data: [
+                    @foreach($finances['chequing'] as $key => $value)
+                        {{$value ?  $value : 'null'}},
+                    @endforeach
+                ],
                 pointRadius: 5,
                 pointHoverRadius: 10,
                 backgroundColor: [
@@ -349,7 +359,11 @@
                 fill:false,
             },{
                 label: 'Épargne',
-                data: [],
+                data: [
+                    @foreach($finances['saving'] as $key => $value)
+                        {{$value ?  $value : 'null'}},
+                    @endforeach
+                ],
                 pointRadius: 5,
                 pointHoverRadius: 10,
                 backgroundColor: [
@@ -365,6 +379,7 @@
         ]
         },
         options: {
+            spanGaps: true,
             plugins: {
                 title: {
                     display: false,

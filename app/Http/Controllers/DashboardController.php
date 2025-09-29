@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use App\Models\Catalog;
 use App\Models\Item;
 use Carbon\Carbon;
+use App\Models\Finances;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,11 @@ class DashboardController extends Controller
                 $transactionColor = '';
                 $totalTransactions = Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->get();
                 $totalTransactionsSum = $totalTransactions->sum('price');
+                $finances = [
+                    'chequing' => [],
+                    'saving' => [] ,
+                    'poppy' => [],
+                ];
                 
                 for($month = 1; $month <= 12; $month++) {
                     if (Carbon::now()->month >= $month) {
@@ -84,6 +90,14 @@ class DashboardController extends Controller
                 });
                 $top10Items = array_slice($transactionByItems, 0, 10);
 
+                for($i = 1; $i < 13; $i++) {
+                    $chequingAccount =  Finances::where('account_type', 0)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
+                    array_push($finances['chequing'],$chequingAccount ? $chequingAccount->amount : null);
+                    $savingAccount =  Finances::where('account_type', 1)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
+                    array_push($finances['saving'],$savingAccount ? $savingAccount->amount : null);
+                    $poppyAccount =  Finances::where('account_type', 2)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
+                    array_push($finances['poppy'],$poppyAccount ? $poppyAccount->amount : null);
+                }
                 return view('view.dashboard.dashboard')->with([
                     'total_transactions' => $totalTransactions,
                     'total_transactions_sum' => $totalTransactionsSum,
@@ -99,6 +113,7 @@ class DashboardController extends Controller
                     'transactions_color_by_month' => $transactionColorsByMonth,
                     'top_10_categories' => $top10Categories,
                     'top_10_items' => $top10Items,
+                    'finances' => $finances
                 ]);
             } else {
                 return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);
