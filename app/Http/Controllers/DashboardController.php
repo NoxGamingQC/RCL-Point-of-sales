@@ -59,12 +59,13 @@ class DashboardController extends Controller
                         array_push($transactionByCategories, [
                             'name' => $category->fullname,
                             'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('category_id', $category->id)->get()->sum('price'),
+                            'quantity' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('category_id', $category->id)->get()->sum('quantity'),
                         ]);
                     }
                 }
 
                 usort($transactionByCategories, function($a, $b) {
-                    return $b['sum'] <=> $a['sum'];
+                    return $b['quantity'] <=> $a['quantity'];
                 });
                 $top10Categories = array_slice($transactionByCategories, 0, 10);
 
@@ -74,11 +75,12 @@ class DashboardController extends Controller
                         array_push($transactionByItems, [
                             'name' => str_replace('\'', '\\\'', $item->name),
                             'sum' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('item_id', $item->id)->get()->sum('price'),
+                            'quantity' =>  Transaction::where('is_canceled', false)->whereYear('created_at', date('Y'))->where('item_id', $item->id)->get()->sum('quantity'),
                         ]);
                     }
                 }
                 usort($transactionByItems, function($a, $b) {
-                    return $b['sum'] <=> $a['sum'];
+                    return $b['quantity'] <=> $a['quantity'];
                 });
                 $top10Items = array_slice($transactionByItems, 0, 10);
 
