@@ -10,6 +10,7 @@ use App\Models\Catalog;
 use App\Models\Item;
 use Carbon\Carbon;
 use App\Models\Finances;
+use App\Models\Customer;
 
 class DashboardController extends Controller
 {
@@ -98,6 +99,7 @@ class DashboardController extends Controller
                     $poppyAccount =  Finances::where('account_type', 2)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
                     array_push($finances['poppy'],$poppyAccount ? $poppyAccount->amount : null);
                 }
+                $activeMemberCount = Customer::where('last_year_paid', date('Y'))->get() ? count(Customer::where('last_year_paid', date('Y'))->get()) : 0;
                 return view('view.dashboard.dashboard')->with([
                     'total_transactions' => $totalTransactions,
                     'total_transactions_sum' => $totalTransactionsSum,
@@ -113,7 +115,8 @@ class DashboardController extends Controller
                     'transactions_color_by_month' => $transactionColorsByMonth,
                     'top_10_categories' => $top10Categories,
                     'top_10_items' => $top10Items,
-                    'finances' => $finances
+                    'finances' => $finances,
+                    'active_member_count' => $activeMemberCount
                 ]);
             } else {
                 return redirect('/logout')->withErrors(['mtransactionCategoriesessage' => 'Accès non authorisé']);

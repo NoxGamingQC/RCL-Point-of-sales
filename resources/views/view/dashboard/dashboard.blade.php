@@ -28,7 +28,7 @@
                                 <h6 class="card-title">Membres en règles</h6>
                             </div>
                             <div class="card-body">
-                                <h2 class="card-title text-center">0</h2>
+                                <h2 class="card-title text-center">{{$active_member_count}}</h2>
                             </div>
                         </div>
                     </div>
