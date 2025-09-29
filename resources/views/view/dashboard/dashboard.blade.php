@@ -54,7 +54,7 @@
                                 @php
                                     $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
                                 @endphp
-                                <h2 class="card-title text-center">{{$formatter->formatCurrency(0, 'CAD')}}</h2>
+                                <h2 class="card-title text-center">{{/*Formatter->formatCurrency(0, 'CAD')*/'N/D'}}</h2>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,9 @@
         labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août', 'Septembre', 'Octobre', 'Novembre' , 'Décembre'],
         datasets: [{
                 label: 'Dépenses',
-                data: [],
+                data: [
+                    
+                ],
                 pointRadius: 5,
                 pointHoverRadius: 10,
                 backgroundColor: [
