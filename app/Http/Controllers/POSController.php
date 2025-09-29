@@ -213,8 +213,19 @@ class POSController extends Controller
     public function inventoryMenu (Request $request, $cashierID) {
         OauthToken::validate($request);
         $cashier = Pin::find($cashierID);  
-        return view('view.pos.inventory')->with([
+        return view('view.pos.inventory_menu')->with([
+            'token' => $request->query()['token'],
+            'cashier_id' => $cashier->id,
+        ]);
+    }
 
+    public function fullInventoryCount (Request $request, $cashierID) {
+        OauthToken::validate($request);
+        $cashier = Pin::find($cashierID);  
+        return view('view.pos.inventory')->with([
+            'token' => $request->query()['token'],
+            'cashier_id' => $cashier->id,
+            'items' => Catalog::allItemList(),
         ]);
     }
 }

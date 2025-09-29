@@ -49,7 +49,7 @@
                     <td>{{$transaction->getCategoryName()}}</td>
                     <td>{{$transaction->getItemName()}}</td>
                     <td style="{{$transaction->is_promotion ? 'text-decoration: line-through;text-decoration-color: red;' : ''}}">{{Number_format($transaction->price, 2)}} $</td>
-                    <td>{!! Carbon::parse($transaction->created_at, 'America/Toronto') !!}}</td>
+                    <td>{!! Carbon::parse($transaction->created_at, 'America/Toronto') !!}</td>
                     <td>{{$transaction->getCashier()}}</td>
                     <td>{{$transaction->is_promotion ? 'N/A' : ($transaction->payment_type === 'cash' ? 'Argent' : 'Carte')}}</td>
                     <td><a class="btn btn-danger  {{$transaction->is_cancel_validated ? 'hidden disabled' : ''}}" {{$transaction->is_cancel_validated ? 'hidden disabled' : ''}}><i class="fa fa-remove"></i></a></td>

@@ -17,6 +17,22 @@ class Catalog extends Model
         return count($itemList);
     }
 
+    public static function scopeAllItemList($query) {
+        $items = [];
+        foreach($query->where('inventory', '!=', null)->get() as $category) {
+            $item = [
+                'name' => $category->name,
+                'image' => $category->image,
+                'inventory' => $category->inventory,
+                'alert_threshold' => $category->inventory,
+                'type' => 'category'
+            ];
+            array_push($items, $item);
+        }
+        dd($items);
+        return $items;
+    }
+
     public function getVariations() {
         return DB::table('bar_items')
             ->where('category_id', '=', $this->id)

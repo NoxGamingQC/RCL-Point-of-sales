@@ -23,6 +23,7 @@ Route::get('/pos/menu/{cashier_id}', 'App\Http\Controllers\POSController@menu');
 Route::get('/pos/kitshop/{cashier_id}', 'App\Http\Controllers\POSController@kitshop');
 Route::get('/pos/getInventory/{itemID}', 'App\Http\Controllers\POSController@getInventoryCount');
 Route::get('/pos/inventory/{cashier_id}', 'App\Http\Controllers\POSController@inventoryMenu');
+Route::get('/pos/inventory/count/{cashier_id}', 'App\Http\Controllers\POSController@fullInventoryCount');
 Route::post('/pos/pay', 'App\Http\Controllers\POSController@save');
 Route::post('/pos/invoice/edit', 'App\Http\Controllers\POSController@saveInvoice');
 Route::post('/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
