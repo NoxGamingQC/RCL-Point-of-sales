@@ -271,7 +271,9 @@
         datasets: [{
                 label: 'Dépenses',
                 data: [
-                    
+                    @for($i = 0; $i < date('m'); $i++)
+                        0,
+                    @endfor
                 ],
                 pointRadius: 5,
                 pointHoverRadius: 10,
