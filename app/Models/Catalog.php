@@ -19,17 +19,31 @@ class Catalog extends Model
 
     public static function scopeAllItemList($query) {
         $items = [];
+        $initialQuery = $query;
         foreach($query->where('inventory', '!=', null)->get() as $category) {
-            $item = [
+            array_push($items,  [
                 'name' => $category->name,
                 'image' => $category->image,
                 'inventory' => $category->inventory,
                 'alert_threshold' => $category->inventory,
                 'type' => 'category'
-            ];
-            array_push($items, $item);
+            ]);
         }
-        dd($items);
+        foreach(Catalog::where('inventory', null)->get() as $category) {
+            $itemsCollection = $category->getVariations();
+            foreach($itemsCollection as $itemCollection) {
+                if($itemCollection->inventory != null) {
+                    array_push($items, [
+                        'name' => $itemCollection->name,
+                        'image' => $itemCollection->image,
+                        'inventory' => $itemCollection->inventory,
+                        'alert_threshold' => $itemCollection->alert_threshold,
+                        'type' => 'item',
+                    ]);
+                }
+            }
+            
+        }
         return $items;
     }
 

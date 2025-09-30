@@ -16,12 +16,16 @@
         <div class="col-12">
         </div>
         @foreach ($items as $item)
-            <div class="col-2 text-center" style="margin:0px !important;padding:0px !important;border: 1px solid black;max-height:75px;min-height:75px">
-                <b>{{$item->name}}</b>
+            <div class="col-2 text-center" style="background-image: url({{$item['image']}});background-size:cover;background-position:center;margin:0px !important;padding:0px !important;border: 1px solid black;max-height:75px;min-height:75px">
+                <b style="padding:5px;background-color:#000;color:#FFF;border-radius:3px;">{{$item['name']}}</b>
                 <br />
-                <span>{{$item->inventory}}</span>
+                <span style="padding:5px;background-color:#000;color:#FFF;border-radius:3px;">{{$item['inventory']}}</span>
             </div>
         @endforeach
+        <div class="col-12 text-right">
+            <br />
+            <input class="btn btn-success" value="Sauvegarder">
+        </div>
     </div>
 </div>
 <script>
