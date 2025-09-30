@@ -79,6 +79,7 @@
                                                 <a class="btn btn-secondary" href="/register" type="button">Créer un compte</a>
                                                 <button type="submit" class="btn btn-primary">Se connecter</button>
                                             </div>
+                                            <br /><br />
                                         </div>
                                     </div>
                                 </form>
