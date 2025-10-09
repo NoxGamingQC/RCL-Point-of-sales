@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 class POSController extends Controller
 {
     public function index(Request $request) {
+        return view('force-lock');
         OauthToken::validate($request);
         return view('view.pos.lock')->with([
             'token' => $request->query()['token'],
@@ -65,6 +66,7 @@ class POSController extends Controller
 
     public function menu(Request $request, $cashierID)
     {
+            return view('force-lock');
             OauthToken::validate($request);
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
@@ -97,6 +99,7 @@ class POSController extends Controller
     }
 
     public function kitshop(Request $request) {
+        return view('force-lock');
         OauthToken::validate($request);
         $items = KitshopItem::all()->sortBy('name');
         return view('view.pos.kitshop')->with([
@@ -211,6 +214,7 @@ class POSController extends Controller
     }
 
     public function inventoryMenu (Request $request, $cashierID) {
+        return view('force-lock');
         OauthToken::validate($request);
         $cashier = Pin::find($cashierID);  
         return view('view.pos.inventory_menu')->with([
