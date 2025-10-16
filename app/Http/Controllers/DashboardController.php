@@ -15,7 +15,6 @@ use App\Models\Customer;
 class DashboardController extends Controller
 {
     public function index() {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -127,7 +126,6 @@ class DashboardController extends Controller
     }
 
     public function transactions() {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -146,7 +144,6 @@ class DashboardController extends Controller
     }
 
     public function getTransactions($firstDay, $secondDay) {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -173,7 +170,6 @@ class DashboardController extends Controller
     }
 
     public function getReports($firstDay, $secondDay) {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -205,7 +201,6 @@ class DashboardController extends Controller
     }
 
     public function getInventory() {
-        return view('force-lock');
         $catalog = Catalog::all();
         return view('view.dashboard.inventory')->with([
             'active_tab' => 'inventory',
@@ -214,7 +209,6 @@ class DashboardController extends Controller
     }
 
     public function items() {
-        return view('force-lock');
         $catalog = Catalog::all();
 
         return view('view.dashboard.items')->with([
