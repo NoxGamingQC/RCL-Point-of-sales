@@ -35,3 +35,4 @@ Route::get('/transactions/{firstDay}/{secondDay}', 'App\Http\Controllers\Dashboa
 Route::get('/reports/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getReports');
 Route::get('/inventory', 'App\Http\Controllers\DashboardController@getInventory');
 Route::get('/items', 'App\Http\Controllers\DashboardController@items');
+Route::get('/members', 'App\Http\Controllers\DashboardController@memberList');

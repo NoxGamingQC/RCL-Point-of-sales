@@ -215,4 +215,14 @@ class DashboardController extends Controller
             'catalog' => $catalog->sortBy('id')
         ]);
     }
+    public function memberList() {
+        if(Auth::check()) {
+            $members = Customer::all()->sortBy('lastname');
+            return view('view.dashboard.members_list')->with([
+                'active_tab' => 'members',
+                'members' => $members
+            ]);
+        }
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
+    }
 }
