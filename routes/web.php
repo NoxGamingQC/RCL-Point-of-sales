@@ -17,22 +17,25 @@ Route::get('/picture_gallery', 'App\Http\Controllers\HomeController@pictureGalle
 Route::get('/tools', 'App\Http\Controllers\HomeController@tools');
 
 //POS
-Route::get('/pos', 'App\Http\Controllers\POSController@index');
-Route::post('/pos/validate/{pin}/{option}', 'App\Http\Controllers\POSController@validateCashier');
-Route::get('/pos/menu/{cashier_id}', 'App\Http\Controllers\POSController@menu');
-Route::get('/pos/kitshop/{cashier_id}', 'App\Http\Controllers\POSController@kitshop');
-Route::get('/pos/getInventory/{itemID}', 'App\Http\Controllers\POSController@getInventoryCount');
-Route::get('/pos/inventory/{cashier_id}', 'App\Http\Controllers\POSController@inventoryMenu');
-Route::get('/pos/inventory/count/{cashier_id}', 'App\Http\Controllers\POSController@fullInventoryCount');
-Route::post('/pos/pay', 'App\Http\Controllers\POSController@save');
-Route::post('/pos/invoice/edit', 'App\Http\Controllers\POSController@saveInvoice');
-Route::post('/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
 
-//Dashboard
-Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
-Route::get('/transactions', 'App\Http\Controllers\DashboardController@transactions');
-Route::get('/transactions/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getTransactions');
-Route::get('/reports/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getReports');
-Route::get('/inventory', 'App\Http\Controllers\DashboardController@getInventory');
-Route::get('/items', 'App\Http\Controllers\DashboardController@items');
-Route::get('/members', 'App\Http\Controllers\DashboardController@memberList');
+Route::middleware('branch')->group(function () {
+    Route::get('/{branch_id}/pos', 'App\Http\Controllers\POSController@index');
+    Route::post('/{branch_id}/pos/validate/{pin}/{option}', 'App\Http\Controllers\POSController@validateCashier');
+    Route::get('/{branch_id}/pos/menu/{cashier_id}', 'App\Http\Controllers\POSController@menu');
+    Route::get('/{branch_id}/pos/kitshop/{cashier_id}', 'App\Http\Controllers\POSController@kitshop');
+    Route::get('/{branch_id}/pos/getInventory/{itemID}', 'App\Http\Controllers\POSController@getInventoryCount');
+    Route::get('/{branch_id}/pos/inventory/{cashier_id}', 'App\Http\Controllers\POSController@inventoryMenu');
+    Route::get('/{branch_id}/pos/inventory/count/{cashier_id}', 'App\Http\Controllers\POSController@fullInventoryCount');
+    Route::post('/{branch_id}/pos/pay', 'App\Http\Controllers\POSController@save');
+    Route::post('/{branch_id}/pos/invoice/edit', 'App\Http\Controllers\POSController@saveInvoice');
+    Route::post('/{branch_id}/pos/inventory', 'App\Http\Controllers\POSController@sellInventory');
+
+    //Dashboard
+    Route::get('/{branch_id}/dashboard', 'App\Http\Controllers\DashboardController@index');
+    Route::get('/{branch_id}/transactions', 'App\Http\Controllers\DashboardController@transactions');
+    Route::get('/{branch_id}/transactions/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getTransactions');
+    Route::get('/{branch_id}/reports/{firstDay}/{secondDay}', 'App\Http\Controllers\DashboardController@getReports');
+    Route::get('/{branch_id}/inventory', 'App\Http\Controllers\DashboardController@getInventory');
+    Route::get('/{branch_id}/items', 'App\Http\Controllers\DashboardController@items');
+    Route::get('/{branch_id}/members', 'App\Http\Controllers\DashboardController@memberList');
+});

@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getUserBranch(): string
+    {
+        $branch = $this->join('branches', 'users.branch_id', '=', 'branches.id')->first(['branches.branch_id']);
+        return $branch->branch_id;
+    }
 }

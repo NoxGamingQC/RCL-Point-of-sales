@@ -15,4 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        'branch' => \App\Http\Middleware\Branch::class,
+    ]);
+})->create();

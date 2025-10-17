@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary no-print sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{Auth::check() ? '/dashboard' : '/'}}">
+        <a class="navbar-brand" href="{{Auth::check() ? '/'. Auth::user()->getUserBranch() .'/dashboard' : '/'}}">
             <img src="/logo.png" alt="{{env('NAME')}}" height="30px">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,16 +32,16 @@
                 @endguest
                 @auth
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="/dashboard">Tableau de bord</a>
+                                <a class="nav-link" aria-current="page" href="/{{Auth::user()->getUserBranch()}}/dashboard">Tableau de bord</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/transactions">Transactions</a>
+                                <a class="nav-link" href="/{{Auth::user()->getUserBranch()}}/transactions">Transactions</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/items">Articles</a>
+                                <a class="nav-link" href="/{{Auth::user()->getUserBranch()}}/items">Articles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/inventory">Inventaire</a>
+                                <a class="nav-link" href="/{{Auth::user()->getUserBranch()}}/inventory">Inventaire</a>
                             </li>
                     </li>
                 @endauth
