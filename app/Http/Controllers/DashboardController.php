@@ -15,7 +15,6 @@ use App\Models\Customer;
 class DashboardController extends Controller
 {
     public function index() {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -100,7 +99,7 @@ class DashboardController extends Controller
                     $poppyAccount =  Finances::where('account_type', 2)->whereYear('date', date('Y'))->whereMonth('date', $i)->first();
                     array_push($finances['poppy'],$poppyAccount ? $poppyAccount->amount : null);
                 }
-                $activeMemberCount = Customer::where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ? count(Customer::where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ) : 0;
+                $activeMemberCount = Customer::where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ? count(Customer::where('archive', false)->where('last_year_paid', date('Y'))->orWhere('last_year_paid', (date('Y') + 1))->get() ) : 0;
                 return view('view.dashboard.dashboard')->with([
                     'total_transactions' => $totalTransactions,
                     'total_transactions_sum' => $totalTransactionsSum,
@@ -127,7 +126,6 @@ class DashboardController extends Controller
     }
 
     public function transactions() {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -146,7 +144,6 @@ class DashboardController extends Controller
     }
 
     public function getTransactions($firstDay, $secondDay) {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -173,7 +170,6 @@ class DashboardController extends Controller
     }
 
     public function getReports($firstDay, $secondDay) {
-        return view('force-lock');
         if(Auth::check()) {
             if(Auth::user()->is_authorized) {
                 $user = Auth::user();
@@ -205,7 +201,6 @@ class DashboardController extends Controller
     }
 
     public function getInventory() {
-        return view('force-lock');
         $catalog = Catalog::all();
         return view('view.dashboard.inventory')->with([
             'active_tab' => 'inventory',
@@ -214,11 +209,20 @@ class DashboardController extends Controller
     }
 
     public function items() {
-        return view('force-lock');
         $catalog = Catalog::all();
 
         return view('view.dashboard.items')->with([
             'catalog' => $catalog->sortBy('id')
         ]);
+    }
+    public function memberList() {
+        if(Auth::check()) {
+            $members = Customer::all()->sortBy('lastname');
+            return view('view.dashboard.members_list')->with([
+                'active_tab' => 'members',
+                'members' => $members
+            ]);
+        }
+        return redirect('/')->withErrors(['message' => 'Accès non authorisé']);
     }
 }
