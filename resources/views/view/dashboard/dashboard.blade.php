@@ -38,9 +38,9 @@
                                 <h6 class="card-title">Revenue</h6>
                             </div>
                             <div class="card-body">
-                                @php
+                                <!--php
                                     $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
-                                @endphp
+                                endphp-->
                                 <h2 class="card-title text-center">{{$total_transactions_sum ? $formatter->formatCurrency($total_transactions_sum, 'CAD') : $formatter->formatCurrency(0, 'CAD')}}</h2>
                             </div>
                         </div>
