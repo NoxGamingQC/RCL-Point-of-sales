@@ -39,7 +39,7 @@
                             </div>
                             <div class="card-body">
                                 @php
-                                    $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                    $formatter = new Intl.NumberFormatter('fr_CA',  Intl.NumberFormatter::CURRENCY); 
                                 @endphp
                                 <h2 class="card-title text-center">{{$total_transactions_sum ? $formatter->formatCurrency($total_transactions_sum, 'CAD') : $formatter->formatCurrency(0, 'CAD')}}</h2>
                             </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="card-body">
                                 @php
-                                    $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                    $formatter = new Intl.NumberFormatter('fr_CA',  Intl.NumberFormatter::CURRENCY); 
                                 @endphp
                                 <h2 class="card-title text-center">{{$formatter->formatCurrency(0, 'CAD')}}</h2>
                             </div>
@@ -98,7 +98,7 @@
                                     @if($top_10_categories)
                                         @foreach($top_10_categories as $key => $value)
                                             @php
-                                                $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                                $formatter = new Intl.NumberFormatter('fr_CA',  Intl.NumberFormatter::CURRENCY); 
                                             @endphp
                                             <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
                                         @endforeach
@@ -119,7 +119,7 @@
                                     @if($top_10_items)
                                         @foreach($top_10_items as $key => $value)
                                             @php
-                                                $formatter = new NumberFormatter('fr_CA',  NumberFormatter::CURRENCY); 
+                                                $formatter = new Intl.NumberFormatter('fr_CA',  Intl.NumberFormatter::CURRENCY); 
                                             @endphp
                                             <li>{{ str_replace(array("\\"), '', $value['name']) }} <small>({{$formatter->formatCurrency($value['sum'], 'CAD')}})</small></li>
                                         @endforeach
