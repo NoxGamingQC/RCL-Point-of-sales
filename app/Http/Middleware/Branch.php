@@ -23,7 +23,7 @@ class Branch
         if($branch->is_active) {
             return $next($request);
         } else {
-            abort(403, 'Le système est désormais verrouillé. Pour plus d\'information demandé Cde Jimmy Béland-Bédard au 819-852-8705.');
+            abort(403, 'account_suspended');
         }
 
     }
