@@ -23,11 +23,23 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        @include('layout.navbar')
+        @if(isset($exception->getHeaders()['navbar']))
+            @if($exception->getHeaders()['navbar'] == true)
+                @include('layout.navbar')
+            @endif
+        @else
+            @include('layout.navbar')
+        @endif
         @include('layout.alert')
         <div id="content">
             @yield('content')
         </div>
-        @include('layout.footer')
+        @if(isset($exception->getHeaders()['footer']))
+            @if($exception->getHeaders()['footer'] == true)
+                @include('layout.footer')
+            @endif
+        @else
+            @include('layout.footer')
+        @endif
     </body>
 </html>
