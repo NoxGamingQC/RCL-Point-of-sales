@@ -19,7 +19,8 @@ class Branch
         if (!$request->route('branch_id')) {
             return redirect('/'); 
         }
-        $branch = Branches::where('branch_id', $request->route('branch_id'))->first();
+        
+        $branch = Branches::where('command', explode('-', $request->route('branch_id')))->where('branch_id', explode('-', $request->route('branch_id'))[1])->first();
         if($branch->is_active) {
             return $next($request);
         } else {
