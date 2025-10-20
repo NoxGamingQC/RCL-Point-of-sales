@@ -19,11 +19,12 @@ class Branch
         if (!$request->route('branch_id')) {
             return redirect('/'); 
         }
-        $branch = Branches::where('branch_id', $request->route('branch_id'))->first();
+        
+        $branch = Branches::where('command', explode('-', $request->route('branch_id')))->where('branch_id', explode('-', $request->route('branch_id'))[1])->first();
         if($branch->is_active) {
             return $next($request);
         } else {
-            abort(403, 'Le système est désormais verrouillé. Pour plus d\'information demandé Cde Jimmy Béland-Bédard au 819-852-8705.');
+            abort(403, 'account_suspended');
         }
 
     }

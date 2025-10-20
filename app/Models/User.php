@@ -51,4 +51,10 @@ class User extends Authenticatable
         $branch = $this->join('branches', 'users.branch_id', '=', 'branches.id')->first(['branches.branch_id']);
         return $branch->branch_id;
     }
+
+    public function getUserCommand(): string
+    {
+        $command = $this->join('branches', 'users.branch_id', '=', 'branches.id')->first(['branches.command']);
+        return $command->command;
+    }
 }

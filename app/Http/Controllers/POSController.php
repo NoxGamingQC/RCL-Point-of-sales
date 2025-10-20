@@ -24,6 +24,7 @@ class POSController extends Controller
 {
     public function index(Request $request) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         return view('view.pos.lock')->with([
             'token' => $request->query()['token'],
             'name' => env('NAME'),
@@ -66,6 +67,7 @@ class POSController extends Controller
     public function menu(Request $request, $cashierID)
     {
                 OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
             $cashier = Pin::find($cashierID);   
             $category = Catalog::all();
             $invoices = Invoice::where('status','=', 'unpaid')->get();
@@ -98,6 +100,7 @@ class POSController extends Controller
 
     public function kitshop(Request $request) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         $items = KitshopItem::all()->sortBy('name');
         return view('view.pos.kitshop')->with([
             'token' => $request->query()['token'],
@@ -107,11 +110,13 @@ class POSController extends Controller
 
     public function getInvoiceItems(Request $request, $invoiceID) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         return Transaction::where('invoice_id', $invoiceID)->get();
     }
 
     public function save(Request $request) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         $cashier = Pin::find($request->cashier_id);
         if($cashier) {
              if(is_null($request->invoice_id)) {
@@ -145,6 +150,7 @@ class POSController extends Controller
 
     public function sellInventory(Request $request) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         $category = Catalog::where('id', $request->category_id)->first();
         try {
             $item = Item::where('id', $request->item_id)->first();
@@ -212,6 +218,7 @@ class POSController extends Controller
 
     public function inventoryMenu (Request $request, $cashierID) {
         OauthToken::validate($request);
+        abort(403, 'account_suspended', ['navbar' => false,'footer' => false]);
         $cashier = Pin::find($cashierID);  
         return view('view.pos.inventory_menu')->with([
             'token' => $request->query()['token'],
