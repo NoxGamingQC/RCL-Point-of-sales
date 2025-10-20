@@ -28,6 +28,8 @@
                 @if($exception->getHeaders()['navbar'] == true)
                     @include('layout.navbar')
                 @endif
+            @else
+                @include('layout.navbar')
             @endif
         @else
             @include('layout.navbar')
@@ -41,6 +43,8 @@
                 @if($exception->getHeaders()['footer'] == true)
                     @include('layout.footer')
                 @endif
+                @else
+                    @include('layout.footer')
             @endif
         @else
             @include('layout.footer')

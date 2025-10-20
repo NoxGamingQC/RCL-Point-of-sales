@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary no-print sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{Auth::check() ? '/'. Auth::user()->getUserCommand() . '-' . Auth::user()->getUserBranch() .'/dashboard' : '/'}}">
-            <img src="/logo.png" alt="{{env('NAME')}}" height="30px">
+            <img src="{{isset(session()->all()['_old_input']['branch']) ? session()->all()['_old_input']['branch']->logo : '/logo.png'}}" alt="{{env('NAME')}}" height="30px">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

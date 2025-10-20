@@ -21,6 +21,8 @@ class Branch
         }
         
         $branch = Branches::where('command', explode('-', $request->route('branch_id')))->where('branch_id', explode('-', $request->route('branch_id'))[1])->first();
+        $request->merge(['branch' => $branch]);
+        $request->flash();
         if($branch->is_active) {
             return $next($request);
         } else {
