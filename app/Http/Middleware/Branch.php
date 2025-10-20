@@ -24,7 +24,9 @@ class Branch
         if($branch->is_active) {
             return $next($request);
         } else {
-            abort(403, 'account_suspended');
+           $isHeader = (explode('/', $request->getPathInfo())[2] == 'pos') ? $request->navbar : true;
+           $isFooter = (explode('/', $request->getPathInfo())[2] == 'pos') ? $request->footer : true;
+            abort(403, 'account_suspended', ['navbar' => $isHeader, 'footer' => $isFooter]);
         }
 
     }
